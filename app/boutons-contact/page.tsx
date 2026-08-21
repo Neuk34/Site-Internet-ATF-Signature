@@ -1,3 +1,10 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Comparatif interne — bouton contact",
+  robots: { index: false, follow: false },
+};
+
 const contacts = [
   { id: "01", style: "phone-premium", eyebrow: "CONTACTEZ-NOUS", label: "07 66 83 20 30", name: "Premium noir et beige" },
   { id: "02", style: "phone-green", eyebrow: "UNE QUESTION ?", label: "07 66 83 20 30", name: "Vert relationnel" },

@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /boutons-devis
+Disallow: /boutons-contact

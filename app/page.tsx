@@ -1,4 +1,11 @@
+import type { Metadata } from "next";
 import { Prototype } from "./prototype";
+
+export const metadata: Metadata = {
+  title: "T.A.F Qualité — Rénovation intérieure, extérieure et globale à Angers",
+  description:
+    "Travaux d'intérieur, d'extérieur et rénovation coordonnée à Angers et alentours, avec Majid comme interlocuteur unique. Devis détaillé, étude de projet gratuite.",
+};
 
 export default function Home() {
   return (
