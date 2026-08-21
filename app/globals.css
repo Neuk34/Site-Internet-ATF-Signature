@@ -61,3 +61,7 @@ footer{padding:54px 20px 110px;background:#f4f4f4}footer p{max-width:500px;margi
 .projects article:nth-child(3) .media{background-image:linear-gradient(rgba(0,0,0,.06),rgba(0,0,0,.34)),url('/media/renovation.jpg')}
 .split>.media{background-image:linear-gradient(rgba(0,0,0,.12),rgba(0,0,0,.44)),url('/media/details.jpg')}
 @media(min-width:800px){.hero>.media{background-image:linear-gradient(rgba(0,0,0,.06),rgba(0,0,0,.3)),url('/media/hero-renovation.jpg');background-size:cover;background-position:center}.hero>.media:before{background:none}.hero>.media strong,.hero>.media small{background:rgba(0,0,0,.7)}}
+
+/* Échelle typographique plus compacte, proche des standards des sites de PME. */
+body{font-size:15px}.wordmark{font-size:1.05rem}.lede{font-size:1rem}h1{font-size:clamp(2rem,8vw,3.75rem);letter-spacing:-.025em}h2{font-size:clamp(1.6rem,6vw,2.8rem);letter-spacing:-.025em}h3{font-size:1.05rem}.card h3{font-size:1.35rem}.quote blockquote{font-size:clamp(1.45rem,5.5vw,2.8rem)}.media strong{font-size:1.05rem}.nav a,nav a{font-size:1rem}
+@media(min-width:800px){header .wordmark{font-size:1.7rem}.hero h1,.pagehero h1{font-size:1.55rem;letter-spacing:.12em}.section>h2{font-size:1.35rem;letter-spacing:.06em}.proof>div:first-child h2{font-size:1.1rem}.pagehero .lede{font-size:.98rem}.card h3{font-size:1.25rem}.quote blockquote{font-size:2.25rem}header nav a{font-size:.68rem}}
