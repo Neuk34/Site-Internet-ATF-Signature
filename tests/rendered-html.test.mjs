@@ -19,7 +19,8 @@ test("renders the T.A.F Qualité prototype and conversion journey", async () => 
   assert.match(html, /<title>T\.A\.F Qualité — Prototype<\/title>/);
   assert.match(html, /Échanger avec Majid/);
   assert.match(html, /Un projet clair/);
-  assert.match(html, /Étape 1 sur 2/);
+  assert.match(html, /OBTENIR MON DEVIS GRATUIT|Obtenir mon devis gratuit/);
+  assert.doesNotMatch(html, /Étape 1 sur 2/);
   assert.match(html, /Mentions légales/);
   assert.match(html, /Politique de confidentialité/);
   assert.doesNotMatch(html, /Your site is taking shape|codex-preview/);
