@@ -50,3 +50,14 @@ footer{padding:54px 20px 110px;background:#f4f4f4}footer p{max-width:500px;margi
   .quote{border-top:12px solid #050505!important}
   .form{width:100%;max-width:none;padding-left:max(7vw,calc((100vw - 1200px)/2));padding-right:max(7vw,calc((100vw - 1200px)/2));border-top:12px solid #050505}
 }
+
+/* Médias de maquette sous licence Pexels — à remplacer par les chantiers T.A.F. */
+.media{background-size:cover;background-position:center}.media:after{content:"VISUEL PROVISOIRE · PEXELS";position:absolute;z-index:2;top:14px;left:14px;padding:6px 8px;background:rgba(0,0,0,.72);color:#fff;font-size:.58rem;font-weight:800;letter-spacing:.12em}.media strong{z-index:2;padding:6px 9px;background:rgba(0,0,0,.68)}
+.hero>.media{background-image:linear-gradient(rgba(0,0,0,.08),rgba(0,0,0,.3)),url('/media/hero-renovation.jpg')}
+.media[aria-label*="photo avant"]{background-image:linear-gradient(rgba(0,0,0,.08),rgba(0,0,0,.35)),url('/media/outils.jpg')}
+.media[aria-label*="photo apres"]{background-image:linear-gradient(rgba(0,0,0,.04),rgba(0,0,0,.28)),url('/media/interieur.jpg')}
+.projects article:nth-child(1) .media{background-image:linear-gradient(rgba(0,0,0,.06),rgba(0,0,0,.34)),url('/media/interieur.jpg')}
+.projects article:nth-child(2) .media{background-image:linear-gradient(rgba(0,0,0,.06),rgba(0,0,0,.34)),url('/media/exterieur.jpg')}
+.projects article:nth-child(3) .media{background-image:linear-gradient(rgba(0,0,0,.06),rgba(0,0,0,.34)),url('/media/renovation.jpg')}
+.split>.media{background-image:linear-gradient(rgba(0,0,0,.12),rgba(0,0,0,.44)),url('/media/details.jpg')}
+@media(min-width:800px){.hero>.media{background-image:linear-gradient(rgba(0,0,0,.06),rgba(0,0,0,.3)),url('/media/hero-renovation.jpg');background-size:cover;background-position:center}.hero>.media:before{background:none}.hero>.media strong,.hero>.media small{background:rgba(0,0,0,.7)}}
