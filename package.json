@@ -9,9 +9,12 @@
     "dev": "vinext dev",
     "build": "vinext build",
     "start": "vinext start",
-    "test": "npm run build && node --test tests/rendered-html.test.mjs",
+    "test": "npm run build && node --test tests/rendered-html.test.mjs tests/seo/seo-engine.test.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
-    "db:generate": "drizzle-kit generate"
+    "db:generate": "drizzle-kit generate",
+    "seo:audit": "node seo/cli.mjs audit",
+    "seo:opportunities": "node seo/cli.mjs opportunities",
+    "seo:update": "node seo/cli.mjs update"
   },
   "dependencies": {
     "drizzle-orm": "0.45.2",

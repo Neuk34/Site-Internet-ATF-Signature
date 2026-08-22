@@ -39,3 +39,6 @@ yarn-error.log*
 /outputs/
 /work/
 .specs/scratchpad/
+
+# rapports générés par le SEO Maintenance Engine (voir seo/) — machine-readable, jamais versionnés
+/reports/seo/
