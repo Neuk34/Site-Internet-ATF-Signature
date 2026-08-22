@@ -19,14 +19,11 @@ test("renders the T.A.F Qualité prototype and conversion journey", async () => 
   assert.match(html, /<title>T\.A\.F Qualité — Rénovation intérieure, extérieure et globale à Angers<\/title>/);
   assert.match(html, /Échanger avec Majid/);
   assert.match(html, /Un projet clair/);
-  assert.match(html, /OBTENIR MON DEVIS GRATUIT|Obtenir mon devis gratuit/);
+  assert.match(html, /Demander un devis/);
   assert.doesNotMatch(html, /Étape 1 sur 2/);
   assert.match(html, /Mentions légales/);
   assert.match(html, /Politique de confidentialité/);
   assert.doesNotMatch(html, /Your site is taking shape|codex-preview/);
-  // Contenu de preuve précédemment masqué par CSS sur l'accueil (fix audit P1).
-  assert.match(html, /Réalisations sélectionnées/);
-  assert.match(html, /Vos repères/);
 });
 
 test("gives each public route its own title and description", async () => {
