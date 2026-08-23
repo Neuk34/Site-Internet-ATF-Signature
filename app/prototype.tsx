@@ -29,6 +29,39 @@ function Logo() {
   );
 }
 
+/** Bande discrète au-dessus du header (jamais dans le header lui-même) : aucune
+ *  superposition possible avec le logo, le menu ou les CTA quelle que soit la largeur. */
+function SocialBar() {
+  const social = siteConfig.social;
+  if (!social) return null;
+  return (
+    <div className="social-bar">
+      <span className="social-bar-label">Rejoignez-nous sur :</span>
+      {social.facebook && (
+        <a href={social.facebook} target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="ATF Signature sur Facebook">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M13.5 21v-7.5h2.5l.5-3h-3V8.5c0-.87.24-1.46 1.49-1.46H16.5V4.36C16.24 4.32 15.32 4.25 14.24 4.25c-2.24 0-3.78 1.37-3.78 3.88V10.5H8v3h2.46V21h3.04Z" />
+          </svg>
+        </a>
+      )}
+      {social.instagram && (
+        <a href={social.instagram} target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="ATF Signature sur Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5" />
+            <circle cx="12" cy="12" r="4" />
+            <circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none" />
+          </svg>
+        </a>
+      )}
+      <span className="social-icon social-icon--soon" title="Bientôt" aria-label="ATF Signature sur TikTok — bientôt disponible">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M16.5 3c.4 2.1 1.8 3.6 4 3.9v3.1c-1.4 0-2.7-.4-3.9-1.2v6.6a5.6 5.6 0 1 1-4.8-5.5v3.2a2.4 2.4 0 1 0 1.7 2.3V3h3Z" />
+        </svg>
+      </span>
+    </div>
+  );
+}
+
 type MediaOverlay = "hero" | "avant" | "apres" | "portrait";
 
 function Media({ slot, overlay }: { slot: MediaSlot; overlay: MediaOverlay }) {
@@ -264,6 +297,7 @@ export function Prototype({ initialPage }: { initialPage: string }) {
 
   return (
     <div>
+      <SocialBar />
       <header>
         <a className="wordmark" href="/">
           <Logo />

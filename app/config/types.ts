@@ -121,6 +121,17 @@ export interface ContactInfo {
   whatsappNumber?: string;
 }
 
+/**
+ * Réseaux sociaux réels de l'entreprise. Chaque champ absent (ex. tiktok tant que le
+ * compte n'existe pas) fait afficher l'icône correspondante en état "à venir" plutôt
+ * que de générer un faux lien - jamais de placeholder du type "#".
+ */
+export interface SocialLinks {
+  facebook?: string;
+  instagram?: string;
+  tiktok?: string;
+}
+
 export interface ServiceArea {
   /** Ville principale, ex. "Angers". */
   city: string;
@@ -351,6 +362,8 @@ export interface SiteConfig {
   };
   cta: CtaConfig;
   contact: ContactInfo;
+  /** Absent ou champ manquant = réseau pas encore existant, jamais un faux lien affiché. */
+  social?: SocialLinks;
   serviceArea: ServiceArea;
   leader: LeaderConfig;
   team: TeamConfig;
