@@ -16,7 +16,7 @@ test("renders the T.A.F Qualité prototype and conversion journey", async () => 
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
   const html = await response.text();
   assert.match(html, /<html lang="fr">/);
-  assert.match(html, /<title>T\.A\.F Qualité — Rénovation intérieure, extérieure et globale à Angers<\/title>/);
+  assert.match(html, /<title>T\.A\.F Qualité — Rénovation intérieure, extérieure et bois à Angers<\/title>/);
   assert.match(html, /Échanger avec Majid/);
   assert.match(html, /Un projet clair/);
   assert.match(html, /Demander un devis/);
@@ -28,7 +28,7 @@ test("renders the T.A.F Qualité prototype and conversion journey", async () => 
 
 test("gives each public route its own title and description", async () => {
   const seen = new Set();
-  for (const path of ["/", "/interieur", "/exterieur", "/renovation", "/taf-qualite"]) {
+  for (const path of ["/", "/interieur", "/exterieur", "/bois", "/taf-qualite"]) {
     const html = await (await render(path)).text();
     const title = html.match(/<title>(.*?)<\/title>/)?.[1];
     assert.ok(title, `missing <title> for ${path}`);
@@ -40,10 +40,10 @@ test("gives each public route its own title and description", async () => {
 
 test("preserves the five validated routes", async () => {
   for (const [path, marker] of [
-    ["/", "Votre rénovation"],
-    ["/interieur", "Faire mieux chez vous"],
-    ["/exterieur", "Valoriser ce qui vous entoure"],
-    ["/renovation", "Plusieurs savoir-faire"],
+    ["/", "Trois savoir-faire"],
+    ["/interieur", "Repeindre, refaire un sol"],
+    ["/exterieur", "On s.en occupe pareil"],
+    ["/bois", "il suffit de les remettre en état"],
     ["/taf-qualite", "Le travail bien fait"],
   ]) {
     const response = await render(path);

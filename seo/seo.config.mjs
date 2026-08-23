@@ -28,7 +28,7 @@ export const seoConfig = {
     { id: "accueil", path: "/", label: "Accueil", file: "app/page.tsx" },
     { id: "interieur", path: "/interieur", label: "Intérieur", file: "app/interieur/page.tsx" },
     { id: "exterieur", path: "/exterieur", label: "Extérieur", file: "app/exterieur/page.tsx" },
-    { id: "renovation", path: "/renovation", label: "Rénovation", file: "app/renovation/page.tsx" },
+    { id: "bois", path: "/bois", label: "Bois, meubles, portes", file: "app/bois/page.tsx" },
     { id: "taf-qualite", path: "/taf-qualite", label: "T.A.F Qualité", file: "app/taf-qualite/page.tsx" },
   ],
 
@@ -39,7 +39,9 @@ export const seoConfig = {
     { id: "boutons-contact", path: "/boutons-contact" },
   ],
 
-  // Familles de requêtes par page, issues de l'audit SEO local du 22/08/2026.
+  // Familles de requêtes par page, issues de l'audit SEO local du 22/08/2026, mises à jour le
+  // 23/08/2026 quand la 4e page est passée de "rénovation globale" (hors périmètre validé, voir
+  // businessFacts) à "bois/meubles/portes" avec des prestations désormais confirmées.
   // Une famille ne doit apparaître fortement que sur UNE page cible (voir cannibalisation).
   keywordMap: {
     accueil: [
@@ -47,6 +49,7 @@ export const seoConfig = {
       "entreprise rénovation Angers",
       "artisan rénovation Angers",
       "devis rénovation Angers",
+      "rénovation maison Angers",
     ],
     interieur: [
       "rénovation intérieure Angers",
@@ -54,21 +57,23 @@ export const seoConfig = {
       "rénovation appartement Angers",
     ],
     exterieur: ["rénovation extérieure Angers"],
-    renovation: [
-      "rénovation maison Angers",
-      "rénovation globale maison Angers",
-      "rénovation maison ancienne Angers",
+    bois: [
+      "menuiserie Angers",
+      "pose de porte Angers",
+      "restauration meuble Angers",
+      "rénovation de porte Angers",
     ],
     "taf-qualite": ["T.A.F Qualité", "Majid Touati", "avis T.A.F Qualité"],
   },
 
   // Opportunités métiers identifiées par la recherche mais non confirmées par Majid.
   // Utilisées par `opportunities` pour générer des NEW_PAGE_CANDIDATE bloqués tant que non confirmées.
+  // "salle de bain"/"cuisine" retirées le 23/08 : désormais couvertes par les prestations validées
+  // de la page Intérieur (rénovation de cuisine, de salle de bains), donc plus une "opportunité" à
+  // confirmer mais un service confirmé. "Extension/agrandissement" retirée : explicitement hors
+  // périmètre validé (gros œuvre) et sa page de rattachement ("rénovation globale") n'existe plus.
   unconfirmedOpportunities: [
-    { cluster: "rénovation salle de bain Angers", nearestPage: "interieur" },
-    { cluster: "rénovation cuisine Angers", nearestPage: "interieur" },
     { cluster: "ravalement façade Angers", nearestPage: "exterieur" },
-    { cluster: "extension / agrandissement maison Angers", nearestPage: "renovation" },
   ],
 
   // Faits métier : tout ce qui n'est pas explicitement VERIFIED reste UNCONFIRMED.

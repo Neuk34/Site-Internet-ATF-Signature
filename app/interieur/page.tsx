@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Prototype } from "../prototype";
 
 export const metadata: Metadata = {
-  title: "Travaux intérieurs à Angers — T.A.F Qualité",
+  title: "Rénovation intérieure à Angers — Peinture, sols, cuisine — T.A.F Qualité",
   description:
-    "Aménagement et rénovation d'intérieur à Angers avec T.A.F Qualité : un interlocuteur unique, un devis détaillé et une équipe coordonnée.",
+    "Peinture, enduits, sols, cuisine, salle de bains : T.A.F Qualité rénove l'intérieur de votre maison à Angers avec un devis détaillé.",
 };
 
 export default function Page() { return <Prototype initialPage="interieur" />; }

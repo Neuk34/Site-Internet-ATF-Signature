@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Prototype } from "../prototype";
 
 export const metadata: Metadata = {
-  title: "Travaux extérieurs à Angers — T.A.F Qualité",
+  title: "Rénovation extérieure à Angers — Façade, terrasse, portail — T.A.F Qualité",
   description:
-    "Valorisation et transformation de vos espaces extérieurs à Angers avec T.A.F Qualité, du diagnostic au résultat.",
+    "Façades, terrasses, clôtures, portails, volets : T.A.F Qualité remet en état vos extérieurs à Angers avec un interlocuteur unique.",
 };
 
 export default function Page() { return <Prototype initialPage="exterieur" />; }

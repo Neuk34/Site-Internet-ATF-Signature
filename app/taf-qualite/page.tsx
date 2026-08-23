@@ -4,7 +4,7 @@ import { Prototype } from "../prototype";
 export const metadata: Metadata = {
   title: "T.A.F Qualité — L'entreprise et son dirigeant, Majid Touati",
   description:
-    "Découvrez T.A.F Qualité, entreprise de rénovation à Angers dirigée par Majid Touati, et les engagements qui cadrent chaque projet.",
+    "Majid Touati dirige T.A.F Qualité à Angers : rénovation intérieure, extérieure et remise en état de portes et meubles, avec un interlocuteur unique.",
 };
 
 export default function Page() { return <Prototype initialPage="taf-qualite" />; }
