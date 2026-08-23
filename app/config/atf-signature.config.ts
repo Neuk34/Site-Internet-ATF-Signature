@@ -81,12 +81,11 @@ export const atfSignatureConfig: SiteConfig = {
       "Bonjour Majid, je viens de visiter le site ATF Signature et j’aimerais échanger avec vous au sujet de mon projet.",
   },
 
-  // Vérifiés manuellement le 23/08/2026 : les deux pages affichent bien "Atf signature".
-  // Pas de clé "tiktok" tant que le compte n'existe pas - l'icône s'affiche en état
-  // "à venir" plutôt que vers un lien inventé.
+  // Vérifiés manuellement le 23/08/2026 : les trois pages affichent bien "Atf signature" / "ats signature".
   social: {
     facebook: "https://www.facebook.com/profile.php?id=61593954650694",
     instagram: "https://www.instagram.com/atfsignature/",
+    tiktok: "https://www.tiktok.com/@ats.signature",
   },
 
   serviceArea: {
