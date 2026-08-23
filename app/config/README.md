@@ -22,13 +22,6 @@ Tout le contenu propre à une entreprise (nom, couleurs, coordonnées, prestatio
 
 ## Créer un nouveau site artisan à partir de ce gabarit
 
-### Méthode assistée (recommandée)
-
-Lancer `npm run nouveau-client` et répondre aux questions. Le générateur crée une
-configuration complète dans `app/config/clients/`, un dossier de médias dédié et
-une checklist dans `clients/`. Par sécurité, il ne remplace jamais une configuration
-existante et ne modifie pas automatiquement le site actif.
-
 ### Méthode manuelle
 
 1. **Dupliquer la config.** Copier `atf-signature.config.ts` sous un nouveau nom
