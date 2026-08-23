@@ -32,6 +32,11 @@
 .social-icon svg {
   width: 15px;
   height: 15px;
+  fill: currentColor;
+}
+
+.social-icon--instagram svg {
+  fill: none;
 }
 
 .social-icon:hover,
