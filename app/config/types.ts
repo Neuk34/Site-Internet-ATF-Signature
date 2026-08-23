@@ -4,6 +4,24 @@
 // contenir de texte, couleur, coordonnée ou média propre à une entreprise en particulier :
 // tout doit venir d'un objet SiteConfig.
 
+/**
+ * Micro-texte du badge de devis flottant (bouton sticky en bas d'écran). Le badge
+ * lui-même (forme, couleurs, icône ✓) est une décision visuelle déjà validée qui
+ * reste dans app/globals.css - seul le texte affiché vient de la config, via les
+ * variables CSS --quote-badge-line1/2 posées en style inline sur le bouton
+ * (voir LegalFooter/Prototype dans app/prototype.tsx).
+ */
+export interface StickyQuoteBadge {
+  /** Ligne principale, ex. "OBTENIR MON DEVIS". */
+  line1: string;
+  /** Ligne secondaire, plus petite, ex. "Gratuit - Sans engagement". */
+  line2: string;
+}
+
+export interface CtaConfig {
+  stickyQuoteBadge: StickyQuoteBadge;
+}
+
 export interface ColorTokens {
   /** Couleur la plus sombre : texte principal, fonds "dark", boutons du bandeau sticky. */
   navy: string;
@@ -331,6 +349,7 @@ export interface SiteConfig {
     guarantees: GuaranteesConfig;
     reassuranceChips: string[];
   };
+  cta: CtaConfig;
   contact: ContactInfo;
   serviceArea: ServiceArea;
   leader: LeaderConfig;

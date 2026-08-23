@@ -92,7 +92,7 @@ body{font-size:15px}.lede{font-size:1rem}h1{font-size:clamp(2rem,8vw,3.75rem);le
 /* Choix validé : option 4, tampon de confiance noir et beige. */
 body .sticky button{margin-left:24px;padding-left:34px;border:2px solid #c9b396;border-radius:999px;background:linear-gradient(180deg,#1b1b1b,#050505);color:#c9b396;box-shadow:0 8px 20px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.1)}
 body .sticky button:before{left:-24px;width:58px;height:58px;border:3px solid #c9b396;background:radial-gradient(circle at 35% 30%,#333,#050505 68%);color:#c9b396;font-size:2rem;transform:translateY(-50%);text-shadow:none;box-shadow:0 5px 13px rgba(0,0,0,.28)}
-body .sticky button:after{content:"OBTENIR MON DEVIS\A Gratuit - Sans engagement";font-size:.7rem;line-height:1.42;letter-spacing:.045em}
+body .sticky button:after{content:var(--quote-badge-line1) "\A" var(--quote-badge-line2);font-size:.7rem;line-height:1.42;letter-spacing:.045em}
 @media(min-width:800px){body .sticky button{margin-left:32px}body .sticky button:before{left:-29px;width:64px;height:64px;font-size:2.2rem}body .sticky button:after{font-size:.75rem}}
 body .sticky{background:transparent;border:0;box-shadow:none}
 

@@ -69,6 +69,10 @@ export const tafQualiteConfig: SiteConfig = {
     ],
   },
 
+  cta: {
+    stickyQuoteBadge: { line1: "OBTENIR MON DEVIS", line2: "Gratuit - Sans engagement" },
+  },
+
   contact: {
     phoneDisplay: "07 66 83 20 30",
     phoneHref: "tel:0766832030",

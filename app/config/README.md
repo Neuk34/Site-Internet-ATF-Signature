@@ -61,10 +61,11 @@ Tout le contenu propre à une entreprise (nom, couleurs, coordonnées, prestatio
 - Les libellés de mentions légales eux-mêmes ("Éditeur :", "Hébergement :"...) sont
   du vocabulaire juridique français générique, pas du contenu d'entreprise : ils
   restent dans `app/prototype.tsx`. Seules les *valeurs* sont configurables.
-- Le micro-texte du bouton de devis flottant (`OBTENIR MON DEVIS GRATUIT`, etc.)
-  est généré par CSS (`app/globals.css`, pseudo-éléments `content:`) plutôt que par
-  la config : c'est un choix visuel déjà validé, pas une donnée. Le changer pour un
-  autre site suppose d'éditer ce CSS directement.
+- La forme du bouton de devis flottant (badge rond, couleurs, icône ✓) reste un choix
+  visuel déjà validé dans `app/globals.css`. Son texte, lui, vient de
+  `cta.stickyQuoteBadge` dans la config, posé en variables CSS
+  (`--quote-badge-line1/2`) sur le bouton - changer le texte n'exige aucune
+  modification de CSS ni de composant.
 - `seo/seo.config.mjs` (utilisé par `npm run seo:audit`) est une configuration
   séparée pour l'outil de maintenance SEO interne, pas pour le site lui-même.
   Elle reste propre à T.A.F Qualité et n'a pas été reliée à ce dossier.

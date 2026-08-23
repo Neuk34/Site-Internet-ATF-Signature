@@ -58,6 +58,10 @@ export const exempleArtisanConfig: SiteConfig = {
     reassuranceChips: ["Interlocutrice unique", "Devis détaillé", "Assurance décennale", "Lyon & alentours"],
   },
 
+  cta: {
+    stickyQuoteBadge: { line1: "DEMANDER UN DEVIS", line2: "Réponse sous 24h" },
+  },
+
   contact: {
     phoneDisplay: "04 78 00 00 00",
     phoneHref: "tel:0478000000",

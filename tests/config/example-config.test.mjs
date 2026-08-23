@@ -99,6 +99,11 @@ test("les métadonnées (title/description/canonical/sitemap) suivent la config 
   assert.deepEqual(paths, ["", "/depannage", "/installation", "/chaudieres", "/dupont-plomberie"]);
 });
 
+test("le micro-texte du badge de devis flottant est propre à chaque config", () => {
+  assert.notDeepEqual(exempleArtisanConfig.cta.stickyQuoteBadge, tafQualiteConfig.cta.stickyQuoteBadge);
+  assert.equal(exempleArtisanConfig.cta.stickyQuoteBadge.line1, "DEMANDER UN DEVIS");
+});
+
 test("la page à propos peut vivre à une autre adresse que /taf-qualite", () => {
   assert.notEqual(exempleArtisanConfig.nav.aboutPath, tafQualiteConfig.nav.aboutPath);
   assert.equal(exempleArtisanConfig.nav.aboutPath, "/dupont-plomberie");

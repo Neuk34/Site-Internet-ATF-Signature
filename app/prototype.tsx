@@ -331,7 +331,17 @@ export function Prototype({ initialPage }: { initialPage: string }) {
         >
           Mon projet
         </a>
-        <button onClick={() => quote(preset)}>Demander un devis</button>
+        <button
+          onClick={() => quote(preset)}
+          style={
+            {
+              "--quote-badge-line1": `"${siteConfig.cta.stickyQuoteBadge.line1}"`,
+              "--quote-badge-line2": `"${siteConfig.cta.stickyQuoteBadge.line2}"`,
+            } as React.CSSProperties
+          }
+        >
+          Demander un devis
+        </button>
       </div>
     </div>
   );
