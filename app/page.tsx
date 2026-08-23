@@ -13,8 +13,12 @@ export default function Home() {
     <>
       <a
         className="home-phone"
-        href="tel:0766832030"
-        aria-label="Contacter T.A.F Qualité au 07 66 83 20 30"
+        href={`https://wa.me/?text=${encodeURIComponent(
+          "Bonjour Majid, je viens de visiter le site T.A.F Qualité et j’aimerais échanger avec vous au sujet de mon projet.",
+        )}`}
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Échanger avec nous sur WhatsApp"
       >
         <i aria-hidden="true">☎</i>
         <span>

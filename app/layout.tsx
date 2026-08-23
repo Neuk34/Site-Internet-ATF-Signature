@@ -18,6 +18,15 @@ export const metadata: Metadata = {
   title: "T.A.F Qualité — Prototype",
   description: "Prototype mobile-first de T.A.F Qualité, travaux et rénovation à Angers.",
   metadataBase: new URL(siteUrl),
-  openGraph: { siteName: "T.A.F Qualité", locale: "fr_FR", type: "website" },
+  openGraph: {
+    siteName: "T.A.F Qualité",
+    locale: "fr_FR",
+    type: "website",
+    images: [{ url: "/media/logo.png", width: 1536, height: 1024, alt: "Logo T.A.F Qualité" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/media/logo.png"],
+  },
 };
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) { return <html lang="fr"><body>{children}<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }} /></body></html>; }

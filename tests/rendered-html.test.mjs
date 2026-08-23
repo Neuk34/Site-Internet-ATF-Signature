@@ -17,7 +17,9 @@ test("renders the T.A.F Qualité prototype and conversion journey", async () => 
   const html = await response.text();
   assert.match(html, /<html lang="fr">/);
   assert.match(html, /<title>T\.A\.F Qualité — Rénovation intérieure, extérieure et bois à Angers<\/title>/);
-  assert.match(html, /Échanger avec Majid/);
+  assert.match(html, /Échanger avec nous/);
+  assert.match(html, /href="https:\/\/wa\.me\/\?text=/);
+  assert.doesNotMatch(html, /href="tel:0766832030"/);
   assert.match(html, /Un projet clair/);
   assert.match(html, /Demander un devis/);
   assert.doesNotMatch(html, /Étape 1 sur 2/);
