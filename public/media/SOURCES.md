@@ -1,6 +1,6 @@
 # Médias provisoires de la maquette
 
-Ces images proviennent de Pexels et doivent être remplacées par les médias réels de T.A.F Qualité avant la mise en ligne.
+Ces images proviennent de Pexels et doivent être remplacées par les médias réels d’ATF Signature avant la mise en ligne.
 
 - `hero-renovation.jpg` — https://www.pexels.com/photo/interior-of-spacious-room-with-supplies-for-renovation-works-6044809/
 - `interieur.jpg` — https://www.pexels.com/photo/renovation-of-an-apartmetn-flat-9908376/
