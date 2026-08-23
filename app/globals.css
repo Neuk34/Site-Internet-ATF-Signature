@@ -113,39 +113,62 @@ body.modal-open{overflow:hidden}
   top: 12px;
   right: 128px;
   min-height: 52px;
-  padding: 8px 12px;
+  padding: 5px 16px 5px 5px;
   display: flex;
   align-items: center;
-  gap: 8px;
-  border-radius: 11px;
-  background: linear-gradient(135deg, #16877c, #0f675f);
+  gap: 10px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #1c1c1c, #030303);
+  border: 1.5px solid var(--orange);
   color: #fff;
-  box-shadow: 0 8px 18px rgba(22, 135, 124, 0.2);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   text-decoration: none;
 }
 
-.home-phone > i {
-  color: #f28a50;
-  font-style: normal;
-  font-size: 1.25rem;
+.home-phone-icon {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid var(--orange);
+  background: radial-gradient(circle at 35% 30%, #313131, #030303 68%);
+  color: var(--orange);
 }
 
-.home-phone > span {
+.home-phone-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.home-phone-text {
   display: grid;
   gap: 1px;
+  line-height: 1.2;
 }
 
-.home-phone small {
-  display: none;
-}
-
-.home-phone b {
-  font-size: 0.72rem;
+.home-phone-text b {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #fff;
   white-space: nowrap;
 }
 
+.home-phone-text small {
+  display: none;
+  color: var(--orange);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.home-phone:hover {
+  filter: saturate(1.15) brightness(1.05);
+}
+
 .home-phone:focus-visible {
-  outline: 3px solid #f28a50;
+  outline: 3px solid var(--orange);
   outline-offset: 3px;
 }
 
@@ -157,9 +180,17 @@ body.modal-open{overflow:hidden}
     width: 44px;
     justify-content: center;
     padding: 0;
+    border-width: 1px;
   }
 
-  .home-phone > span {
+  .home-phone-icon {
+    width: 42px;
+    height: 42px;
+    border: 0;
+    background: transparent;
+  }
+
+  .home-phone-text {
     display: none;
   }
 }
@@ -169,24 +200,27 @@ body.modal-open{overflow:hidden}
     top: 26px;
     right: 4vw;
     min-height: 64px;
-    padding: 10px 18px;
-    gap: 12px;
-    border-radius: 12px;
+    padding: 6px 22px 6px 6px;
+    gap: 14px;
   }
 
-  .home-phone > i {
-    font-size: 1.55rem;
+  .home-phone-icon {
+    width: 48px;
+    height: 48px;
   }
 
-  .home-phone small {
+  .home-phone-icon svg {
+    width: 21px;
+    height: 21px;
+  }
+
+  .home-phone-text b {
+    font-size: 0.86rem;
+  }
+
+  .home-phone-text small {
     display: block;
-    color: inherit;
-    font-size: 0.58rem;
-    letter-spacing: 0.08em;
-  }
-
-  .home-phone b {
-    font-size: 0.88rem;
+    font-size: 0.66rem;
   }
 }
 
