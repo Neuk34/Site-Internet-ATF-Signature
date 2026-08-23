@@ -1,2 +1,9 @@
 import { Prototype } from "../prototype";
-export default function Page() { return <Prototype initialPage="interieur" />; }
+import { siteConfig } from "../config";
+import { buildServiceMetadata } from "../config/helpers";
+
+export const metadata = buildServiceMetadata(siteConfig, "interieur");
+
+export default function Page() {
+  return <Prototype initialPage="interieur" />;
+}

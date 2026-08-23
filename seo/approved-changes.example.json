@@ -1,0 +1,12 @@
+{
+  "_comment": "Modèle. Copier vers un fichier réel, ne jamais committer de vraies décisions ici. Par défaut, seo:update est en dry-run (aucune écriture) tant que --apply n'est pas passé explicitement.",
+  "approved_changes": [
+    {
+      "type": "META_UPDATE",
+      "page": "interieur",
+      "title": "Rénovation intérieure à Angers — ATF Signature",
+      "description": "Aménagement et rénovation d'intérieur à Angers avec ATF Signature : un interlocuteur unique, un devis détaillé et une équipe coordonnée.",
+      "business_facts_used": []
+    }
+  ]
+}

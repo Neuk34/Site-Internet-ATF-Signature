@@ -1,3 +1,10 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Comparatif interne — boutons devis",
+  robots: { index: false, follow: false },
+};
+
 const options = [
   { id: "01", style: "check", icon: "✓", name: "Coche dynamique", sub: "Gratuit · Sans engagement" },
   { id: "02", style: "document", icon: "▤", name: "Document premium", sub: "Réponse personnalisée" },
