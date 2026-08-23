@@ -391,7 +391,7 @@ body.modal-open{overflow:hidden}
 /* Échelle visuelle commune de l'en-tête et des actions principales. */
 :root {
   --identity-social-size: 26px;
-  --identity-logo-height: 52px;
+  --identity-logo-height: 62px;
   --identity-contact-width: 150px;
   --identity-quote-height: 64px;
 }
@@ -438,7 +438,7 @@ header .wordmark img {
 @media (min-width: 800px) {
   :root {
     --identity-social-size: 30px;
-    --identity-logo-height: 88px;
+    --identity-logo-height: 108px;
     --identity-contact-width: clamp(190px, 19vw, 240px);
     --identity-quote-height: 68px;
   }
@@ -465,5 +465,15 @@ header .wordmark img {
 
   .sticky button:after {
     font-size: .7rem;
+  }
+}
+
+@media (min-width: 1100px) {
+  :root {
+    --identity-logo-height: 138px;
+  }
+
+  header {
+    height: 260px;
   }
 }
