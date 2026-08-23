@@ -258,7 +258,7 @@ body.modal-open{overflow:hidden}
 .site-contact-button {
   position: absolute;
   z-index: 22;
-  left: 14px;
+  right: 14px;
   bottom: 5px;
   width: 168px;
   min-height: 44px;
@@ -301,9 +301,9 @@ body.modal-open{overflow:hidden}
 @media (min-width: 800px) {
   .site-contact-button {
     top: 22px;
-    right: auto;
+    right: 3vw;
     bottom: auto;
-    left: 3vw;
+    left: auto;
     width: clamp(170px, 22vw, 280px);
     min-height: 56px;
     transform: none;
