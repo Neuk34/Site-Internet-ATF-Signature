@@ -21,8 +21,8 @@ function Logo() {
     <img
       src={logo.src}
       alt={logo.alt}
-      width={1536}
-      height={1024}
+      width={720}
+      height={277}
       loading="eager"
       style={{ aspectRatio: logo.aspectRatio, objectPosition: logo.objectPosition ?? "top" }}
     />

@@ -343,10 +343,10 @@ export const atfSignatureConfig: SiteConfig = {
 
   media: {
     logo: {
-      src: "/media/logo.png",
+      src: "/media/logo-header.webp",
       alt: "ATF Signature",
       isPlaceholder: false,
-      aspectRatio: "1536/590",
+      aspectRatio: "720/277",
       objectPosition: "top",
     },
     heroImage: {
