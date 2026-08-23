@@ -387,3 +387,83 @@ body.modal-open{overflow:hidden}
   display: flex;
   align-items: center;
 }
+
+/* Échelle visuelle commune de l'en-tête et des actions principales. */
+:root {
+  --identity-social-size: 26px;
+  --identity-logo-height: 52px;
+  --identity-contact-width: 150px;
+  --identity-quote-height: 64px;
+}
+
+.social-icon {
+  width: var(--identity-social-size);
+  height: var(--identity-social-size);
+}
+
+.social-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+header .wordmark img {
+  height: var(--identity-logo-height);
+}
+
+.site-contact-button {
+  width: var(--identity-contact-width);
+}
+
+.sticky {
+  height: var(--identity-quote-height);
+}
+
+.sticky button {
+  margin-top: 7px;
+  margin-bottom: 7px;
+}
+
+.sticky button:before {
+  left: -27px;
+  width: 58px;
+  height: 58px;
+  border-width: 3px;
+  font-size: 2.6rem;
+}
+
+.sticky button:after {
+  font-size: .68rem;
+}
+
+@media (min-width: 800px) {
+  :root {
+    --identity-social-size: 30px;
+    --identity-logo-height: 88px;
+    --identity-contact-width: clamp(190px, 19vw, 240px);
+    --identity-quote-height: 68px;
+  }
+
+  .social-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .sticky {
+    width: 380px;
+  }
+
+  .sticky button {
+    margin-left: 34px;
+  }
+
+  .sticky button:before {
+    left: -31px;
+    width: 64px;
+    height: 64px;
+    font-size: 2.85rem;
+  }
+
+  .sticky button:after {
+    font-size: .7rem;
+  }
+}
