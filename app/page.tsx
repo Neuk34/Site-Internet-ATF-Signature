@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "T.A.F Qualité — Rénovation intérieure, extérieure et bois à Angers",
   description:
     "Peinture, sols, façades, terrasses, portes et meubles : T.A.F Qualité rénove et remet en état à Angers, avec Majid Touati comme interlocuteur unique.",
+  alternates: { canonical: "/" },
 };
 
 export default function Home() {

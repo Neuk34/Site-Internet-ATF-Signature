@@ -7,7 +7,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import { seoConfig } from "./seo.config.mjs";
-import { isBuilt, projectRoot, renderAllPages } from "./lib/render.mjs";
+import { isBuilt, projectRoot, renderAllPages, renderPage } from "./lib/render.mjs";
 import { analyzeSite, analyzeSitemap } from "./lib/audit.mjs";
 import { persistAuditReport, diffAgainstPrevious, renderConsoleAudit, renderConsoleOpportunities } from "./lib/report.mjs";
 import { createLocalProvider, createSearchConsoleProvider } from "./lib/provider.mjs";
@@ -39,7 +39,8 @@ async function renderPagesForAudit() {
 async function cmdAudit() {
   await requireBuild();
   const { publicRendered, excludedRendered } = await renderPagesForAudit();
-  const sitemapFindings = analyzeSitemap(rootDir, seoConfig.pages).map((f) => ({ ...f, category: f.category }));
+  const sitemapResponse = await renderPage("/sitemap.xml");
+  const sitemapFindings = analyzeSitemap(rootDir, seoConfig.pages, sitemapResponse);
   const result = analyzeSite(publicRendered, excludedRendered, sitemapFindings);
 
   const previous = persistAuditReport(rootDir, result);

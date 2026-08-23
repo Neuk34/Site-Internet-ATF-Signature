@@ -190,23 +190,36 @@ function analyzeInternalLinking(publicPages) {
 }
 
 /**
- * Vérifie public/sitemap.xml : présence, XML valide, et couverture des 5 pages publiques
- * (sans les pages labo, qui doivent rester hors sitemap).
+ * Vérifie /sitemap.xml tel que réellement servi (fichier statique dans public/ OU route
+ * dynamique app/sitemap.ts — vinext/Next.js supportent les deux, l'audit ne doit pas supposer
+ * laquelle est utilisée). Présence, XML valide, couverture des pages publiques.
  * @param {string} rootDir
  * @param {{path:string}[]} publicPages
+ * @param {{status:number, html:string}|null} sitemapResponse rendu réel de /sitemap.xml, ou null
+ *   si non fourni (fallback sur l'ancien contrôle de fichier statique).
  */
-export function analyzeSitemap(rootDir, publicPages) {
+export function analyzeSitemap(rootDir, publicPages, sitemapResponse = null) {
   const f = [];
-  const sitemapPath = path.join(rootDir, "public", "sitemap.xml");
-  if (!existsSync(sitemapPath)) {
-    f.push(finding("(site)", "MISSING_SITEMAP", "P1", "TECHNICAL", "public/sitemap.xml est absent."));
-    return f;
+  let raw;
+
+  if (sitemapResponse) {
+    if (sitemapResponse.status !== 200) {
+      f.push(finding("(site)", "MISSING_SITEMAP", "P1", "TECHNICAL", "/sitemap.xml ne répond pas (ni fichier statique public/sitemap.xml, ni route app/sitemap.ts)."));
+      return f;
+    }
+    raw = sitemapResponse.html;
+  } else {
+    const sitemapPath = path.join(rootDir, "public", "sitemap.xml");
+    if (!existsSync(sitemapPath)) {
+      f.push(finding("(site)", "MISSING_SITEMAP", "P1", "TECHNICAL", "public/sitemap.xml est absent (et aucun rendu de /sitemap.xml fourni à l'audit)."));
+      return f;
+    }
+    raw = readFileSync(sitemapPath, "utf8");
   }
 
-  const raw = readFileSync(sitemapPath, "utf8");
   const isWellFormed = /<urlset[\s\S]*<\/urlset>/i.test(raw) && !/<[^>]+$/.test(raw.trim());
   if (!isWellFormed) {
-    f.push(finding("(site)", "INVALID_SITEMAP", "P0", "TECHNICAL", "public/sitemap.xml existe mais ne ressemble pas à un XML <urlset> valide."));
+    f.push(finding("(site)", "INVALID_SITEMAP", "P0", "TECHNICAL", "/sitemap.xml existe mais ne ressemble pas à un XML <urlset> valide."));
     return f;
   }
 
