@@ -434,6 +434,20 @@ function Universe({ service, quote }: { service: ServiceDefinition; quote: (proj
           ))}
         </section>
       )}
+      <section className="section quote">
+        <p className="eyebrow">{siteConfig.leader.quoteEyebrow}</p>
+        <blockquote>« {siteConfig.leader.quote} »</blockquote>
+        {siteConfig.leader.quoteNote && <small>{siteConfig.leader.quoteNote}</small>}
+      </section>
+      <Guarantees />
+      <section className="section reassurance">
+        <p className="eyebrow">Vos repères</p>
+        <div className="chips">
+          {siteConfig.business.reassuranceChips.map((chip) => (
+            <span key={chip}>{chip}</span>
+          ))}
+        </div>
+      </section>
     </>
   );
 }
@@ -477,24 +491,10 @@ function About({ quote: _quote }: { quote: (project?: Project) => void }) {
           {leader.bioNote && <small>{leader.bioNote}</small>}
         </div>
       </section>
-      <section className="section quote">
-        <p className="eyebrow">{leader.quoteEyebrow}</p>
-        <blockquote>« {leader.quote} »</blockquote>
-        {leader.quoteNote && <small>{leader.quoteNote}</small>}
-      </section>
       <section className="section">
         <p className="eyebrow">{siteConfig.business.scope.eyebrow}</p>
         <h2>{siteConfig.business.scope.title}</h2>
         <p className="lede">{siteConfig.business.scope.text}</p>
-      </section>
-      <Guarantees />
-      <section className="section reassurance">
-        <p className="eyebrow">Vos repères</p>
-        <div className="chips">
-          {siteConfig.business.reassuranceChips.map((chip) => (
-            <span key={chip}>{chip}</span>
-          ))}
-        </div>
       </section>
     </>
   );
