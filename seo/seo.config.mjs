@@ -1,13 +1,25 @@
 // Configuration centrale du SEO Maintenance Engine.
 // Aucun mot-clé, zone ou fait métier ne doit être écrit ailleurs dans le moteur :
 // tout part d'ici, pour rester modifiable sans toucher au code.
+//
+// brand, domain et pages ne sont PAS dupliqués à la main : ils viennent de
+// app/config (la config réelle du site rendu), pour qu'un service ajouté/renommé/
+// retiré là-bas ne puisse pas se retrouver oublié ici. Tout le reste (mots-clés,
+// faits métier, motifs sensibles...) est propre à cet outil d'audit et n'a pas
+// d'équivalent dans app/config - ça reste défini ici.
+import { siteConfig } from "../app/config/index.ts";
+
+const aboutId = siteConfig.nav.aboutPath.replace(/^\//, "");
 
 export const seoConfig = {
-  brand: "T.A.F Qualité",
+  brand: siteConfig.business.name,
 
   // Domaine de production : pas encore connu (site pas encore en ligne publiquement).
-  // Utilisé pour construire des URLs canoniques absolues une fois défini.
-  domain: null,
+  // Utilisé pour construire des URLs canoniques absolues une fois défini. Même variable
+  // d'environnement que app/config (SITE_URL), mais null tant qu'elle n'est pas définie
+  // plutôt que le domaine de secours "https://example.com" que sert le site lui-même :
+  // ici, "non défini" doit rester distinguable d'une vraie valeur.
+  domain: process.env.SITE_URL ?? null,
 
   zones: {
     primary: "Angers",
@@ -23,13 +35,25 @@ export const seoConfig = {
     observedCommunes: ["Avrillé", "Beaucouzé", "Trélazé", "Les Ponts-de-Cé"],
   },
 
-  // Les 5 pages publiques réelles du site. `id` doit correspondre au dossier sous app/.
+  // Les pages publiques réelles du site, dérivées de app/config (services + accueil +
+  // à propos) plutôt que recopiées : ajouter/renommer/retirer un service dans
+  // app/config met cette liste à jour automatiquement.
+  //
+  // `file` reste un chemin littéral vers chaque page.tsx : c'est ce que lit
+  // lib/update.mjs pour appliquer un META_UPDATE. Depuis que les titres/descriptions
+  // vivent dans app/config plutôt que dans ces fichiers (page.tsx n'appelle plus que
+  // buildServiceMetadata(config, "clé")), META_UPDATE ne peut plus les y localiser par
+  // regex - voir le rapport de mission : capacité connue comme cassée, pas corrigée ici,
+  // car la correction porte sur lib/update.mjs (hors périmètre de cette liaison).
   pages: [
-    { id: "accueil", path: "/", label: "Accueil", file: "app/page.tsx" },
-    { id: "interieur", path: "/interieur", label: "Intérieur", file: "app/interieur/page.tsx" },
-    { id: "exterieur", path: "/exterieur", label: "Extérieur", file: "app/exterieur/page.tsx" },
-    { id: "bois", path: "/bois", label: "Bois, meubles, portes", file: "app/bois/page.tsx" },
-    { id: "taf-qualite", path: "/taf-qualite", label: "T.A.F Qualité", file: "app/taf-qualite/page.tsx" },
+    { id: "accueil", path: "/", label: siteConfig.nav.homeLabel, file: "app/page.tsx" },
+    ...siteConfig.services.map((service) => ({
+      id: service.key,
+      path: `/${service.key}`,
+      label: service.navLabel,
+      file: `app/${service.key}/page.tsx`,
+    })),
+    { id: aboutId, path: siteConfig.nav.aboutPath, label: siteConfig.nav.aboutLabel, file: `app${siteConfig.nav.aboutPath}/page.tsx` },
   ],
 
   // Pages volontairement hors périmètre commercial (planches de comparaison internes).

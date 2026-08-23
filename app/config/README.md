@@ -66,6 +66,22 @@ Tout le contenu propre à une entreprise (nom, couleurs, coordonnées, prestatio
   `cta.stickyQuoteBadge` dans la config, posé en variables CSS
   (`--quote-badge-line1/2`) sur le bouton - changer le texte n'exige aucune
   modification de CSS ni de composant.
-- `seo/seo.config.mjs` (utilisé par `npm run seo:audit`) est une configuration
-  séparée pour l'outil de maintenance SEO interne, pas pour le site lui-même.
-  Elle reste propre à T.A.F Qualité et n'a pas été reliée à ce dossier.
+- `seo/seo.config.mjs` (utilisé par `npm run seo:audit`/`seo:opportunities`/`seo:update`)
+  reste une configuration séparée pour l'outil de maintenance SEO interne : mots-clés,
+  faits métier confirmés/non confirmés, motifs sensibles... n'ont pas d'équivalent ici
+  et n'ont pas vocation à en avoir. Seuls `brand`, `domain` et `pages` y sont **lus**
+  depuis `app/config` (import direct de `siteConfig`) plutôt que dupliqués à la main,
+  pour qu'un service ajouté/renommé/retiré ne puisse pas être oublié côté audit SEO.
+  Conséquence : ces trois commandes tournent maintenant avec
+  `node --experimental-strip-types` (voir `package.json`) pour pouvoir importer un
+  fichier `.ts` directement, sans dépendance supplémentaire.
+
+  ⚠️ **Capacité connue comme cassée, pas corrigée ici** : `seo/lib/update.mjs` modifie
+  le titre/la description d'une page en cherchant `title:\s*"..."` par regex dans le
+  fichier `page.file`. Depuis que les métadonnées vivent dans `app/config` plutôt que
+  littéralement dans `app/<service>/page.tsx` (qui n'appelle plus que
+  `buildServiceMetadata(config, "clé")`), ce regex ne trouve plus rien sur les 5 pages
+  réelles - `npm run seo:update` échouera avec "Impossible de localiser title:" pour
+  un `META_UPDATE` sur l'une d'elles. Le corriger suppose de réécrire cette fonction
+  pour cibler le bon service à l'intérieur du fichier de config partagé (plusieurs
+  services y cohabitent), ce qui est un vrai chantier à part, pas une simple liaison.
