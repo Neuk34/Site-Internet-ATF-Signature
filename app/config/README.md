@@ -76,12 +76,11 @@ Tout le contenu propre à une entreprise (nom, couleurs, coordonnées, prestatio
   `node --experimental-strip-types` (voir `package.json`) pour pouvoir importer un
   fichier `.ts` directement, sans dépendance supplémentaire.
 
-  ⚠️ **Capacité connue comme cassée, pas corrigée ici** : `seo/lib/update.mjs` modifie
-  le titre/la description d'une page en cherchant `title:\s*"..."` par regex dans le
-  fichier `page.file`. Depuis que les métadonnées vivent dans `app/config` plutôt que
-  littéralement dans `app/<service>/page.tsx` (qui n'appelle plus que
-  `buildServiceMetadata(config, "clé")`), ce regex ne trouve plus rien sur les 5 pages
-  réelles - `npm run seo:update` échouera avec "Impossible de localiser title:" pour
-  un `META_UPDATE` sur l'une d'elles. Le corriger suppose de réécrire cette fonction
-  pour cibler le bon service à l'intérieur du fichier de config partagé (plusieurs
-  services y cohabitent), ce qui est un vrai chantier à part, pas une simple liaison.
+  `META_UPDATE` (`npm run seo:update`) sait éditer title/description sur les 5 pages
+  réelles : chaque entrée de `pages` porte un `metaPath` (`{file, kind, key?}`) qui dit
+  à `seo/lib/update.mjs` où chercher - `activeConfigFile` (exporté par
+  `app/config/index.ts`, la même ligne que `siteConfig`) plutôt qu'un chemin recopié à
+  la main. Comme plusieurs pages partagent ce fichier (et que `about` a un `title`
+  d'accroche *et* un `meta.title` distincts), la recherche du bon bloc `meta` se fait
+  par analyse syntaxique réelle (le compilateur TypeScript, déjà une dépendance du
+  projet) plutôt que par un regex qui trouverait le premier "title:" venu.

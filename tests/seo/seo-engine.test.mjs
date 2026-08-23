@@ -156,3 +156,97 @@ test("CONTENT_EDIT est ignoré sans --allow-content-edit", () => {
   assert.equal(results[0].status, "SKIPPED_REQUIRES_FLAG");
   rmSync(dir, { recursive: true, force: true });
 });
+
+// Fixture qui reproduit la forme réelle de app/config/*.config.ts : plusieurs services
+// dans un seul fichier, et une page "about" qui a un `title` d'accroche (h1) ET un
+// `meta.title` distinct - le piège que doit éviter la recherche par metaPath.
+function writeSharedConfigFixture(dir) {
+  mkdirSync(path.join(dir, "app", "config"), { recursive: true });
+  const filePath = path.join(dir, "app", "config", "site.config.ts");
+  const content = `export const config = {
+  business: {
+    homeMeta: { title: "Accueil - titre", description: "Accueil - description" },
+  },
+  services: [
+    {
+      key: "interieur",
+      meta: { title: "Interieur - titre", description: "Interieur - description" },
+    },
+    {
+      key: "exterieur",
+      meta: { title: "Exterieur - titre", description: "Exterieur - description" },
+    },
+  ],
+  about: {
+    title: "Accroche à propos (h1, pas un meta title)",
+    meta: { title: "A propos - titre", description: "A propos - description" },
+  },
+};
+`;
+  writeFileSync(filePath, content, "utf8");
+  return { filePath, relativeFile: "app/config/site.config.ts" };
+}
+
+test("META_UPDATE localise le bon service dans un fichier de config partagé", () => {
+  const dir = mkdtempSync(path.join(tmpdir(), "seo-shared-config-"));
+  const { filePath, relativeFile } = writeSharedConfigFixture(dir);
+
+  const config = {
+    ...seoConfig,
+    pages: [
+      { id: "interieur", path: "/interieur", file: "app/interieur/page.tsx", metaPath: { file: relativeFile, kind: "service", key: "interieur" } },
+      { id: "exterieur", path: "/exterieur", file: "app/exterieur/page.tsx", metaPath: { file: relativeFile, kind: "service", key: "exterieur" } },
+    ],
+  };
+
+  const decisions = {
+    approved_changes: [{ type: "META_UPDATE", page: "interieur", title: "Nouveau titre intérieur", description: "Nouvelle description intérieur" }],
+  };
+
+  const results = runUpdate(dir, decisions, config, { dryRun: false, allowContentEdit: false });
+  assert.equal(results[0].status, "APPLIED");
+
+  const after = readFileSync(filePath, "utf8");
+  assert.match(after, /key: "interieur",\s*\n\s*meta: \{ title: "Nouveau titre intérieur", description: "Nouvelle description intérieur" \}/);
+  // Le service voisin ne doit pas avoir bougé.
+  assert.match(after, /key: "exterieur",\s*\n\s*meta: \{ title: "Exterieur - titre", description: "Exterieur - description" \}/);
+
+  rmSync(dir, { recursive: true, force: true });
+});
+
+test("META_UPDATE sur la page à propos édite meta.title, jamais l'accroche (h1) qui porte aussi un champ title", () => {
+  const dir = mkdtempSync(path.join(tmpdir(), "seo-shared-config-about-"));
+  const { filePath, relativeFile } = writeSharedConfigFixture(dir);
+
+  const config = {
+    ...seoConfig,
+    pages: [{ id: "taf-qualite", path: "/taf-qualite", file: "app/taf-qualite/page.tsx", metaPath: { file: relativeFile, kind: "about" } }],
+  };
+
+  const decisions = { approved_changes: [{ type: "META_UPDATE", page: "taf-qualite", title: "Nouveau titre SEO à propos" }] };
+  const results = runUpdate(dir, decisions, config, { dryRun: false, allowContentEdit: false });
+  assert.equal(results[0].status, "APPLIED");
+
+  const after = readFileSync(filePath, "utf8");
+  assert.match(after, /meta: \{ title: "Nouveau titre SEO à propos"/);
+  assert.match(after, /title: "Accroche à propos \(h1, pas un meta title\)"/, "le h1 de la page ne doit pas être touché");
+
+  rmSync(dir, { recursive: true, force: true });
+});
+
+test("META_UPDATE sur l'accueil édite business.homeMeta", () => {
+  const dir = mkdtempSync(path.join(tmpdir(), "seo-shared-config-home-"));
+  const { filePath, relativeFile } = writeSharedConfigFixture(dir);
+
+  const config = {
+    ...seoConfig,
+    pages: [{ id: "accueil", path: "/", file: "app/page.tsx", metaPath: { file: relativeFile, kind: "home" } }],
+  };
+
+  const decisions = { approved_changes: [{ type: "META_UPDATE", page: "accueil", description: "Nouvelle description accueil" }] };
+  const results = runUpdate(dir, decisions, config, { dryRun: false, allowContentEdit: false });
+  assert.equal(results[0].status, "APPLIED");
+  assert.match(readFileSync(filePath, "utf8"), /homeMeta: \{ title: "Accueil - titre", description: "Nouvelle description accueil" \}/);
+
+  rmSync(dir, { recursive: true, force: true });
+});

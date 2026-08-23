@@ -7,7 +7,7 @@
 // retiré là-bas ne puisse pas se retrouver oublié ici. Tout le reste (mots-clés,
 // faits métier, motifs sensibles...) est propre à cet outil d'audit et n'a pas
 // d'équivalent dans app/config - ça reste défini ici.
-import { siteConfig } from "../app/config/index.ts";
+import { siteConfig, activeConfigFile } from "../app/config/index.ts";
 
 const aboutId = siteConfig.nav.aboutPath.replace(/^\//, "");
 
@@ -39,21 +39,34 @@ export const seoConfig = {
   // à propos) plutôt que recopiées : ajouter/renommer/retirer un service dans
   // app/config met cette liste à jour automatiquement.
   //
-  // `file` reste un chemin littéral vers chaque page.tsx : c'est ce que lit
-  // lib/update.mjs pour appliquer un META_UPDATE. Depuis que les titres/descriptions
-  // vivent dans app/config plutôt que dans ces fichiers (page.tsx n'appelle plus que
-  // buildServiceMetadata(config, "clé")), META_UPDATE ne peut plus les y localiser par
-  // regex - voir le rapport de mission : capacité connue comme cassée, pas corrigée ici,
-  // car la correction porte sur lib/update.mjs (hors périmètre de cette liaison).
+  // `file` pointe vers le composant de la page (app/<page>/page.tsx). `metaPath` dit où
+  // vit RÉELLEMENT le title/description à éditer pour un META_UPDATE : depuis que les
+  // page.tsx n'appellent plus que buildXMetadata(config, ...), ce n'est plus dans `file`
+  // mais dans activeConfigFile, partagé entre plusieurs pages - lib/update.mjs s'en sert
+  // pour localiser le bon bloc `meta` par analyse syntaxique plutôt que par un regex qui
+  // trouverait le premier "title:" venu (voir applyMetaUpdateInSharedConfig).
   pages: [
-    { id: "accueil", path: "/", label: siteConfig.nav.homeLabel, file: "app/page.tsx" },
+    {
+      id: "accueil",
+      path: "/",
+      label: siteConfig.nav.homeLabel,
+      file: "app/page.tsx",
+      metaPath: { file: activeConfigFile, kind: "home" },
+    },
     ...siteConfig.services.map((service) => ({
       id: service.key,
       path: `/${service.key}`,
       label: service.navLabel,
       file: `app/${service.key}/page.tsx`,
+      metaPath: { file: activeConfigFile, kind: "service", key: service.key },
     })),
-    { id: aboutId, path: siteConfig.nav.aboutPath, label: siteConfig.nav.aboutLabel, file: `app${siteConfig.nav.aboutPath}/page.tsx` },
+    {
+      id: aboutId,
+      path: siteConfig.nav.aboutPath,
+      label: siteConfig.nav.aboutLabel,
+      file: `app${siteConfig.nav.aboutPath}/page.tsx`,
+      metaPath: { file: activeConfigFile, kind: "about" },
+    },
   ],
 
   // Pages volontairement hors périmètre commercial (planches de comparaison internes).
