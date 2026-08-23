@@ -19,7 +19,7 @@ test("renders the ATF Signature prototype and conversion journey", async () => {
   assert.match(html, /<title>ATF Signature — Rénovation intérieure, extérieure et bois à Angers<\/title>/);
   assert.match(html, /Échanger avec nous/);
   assert.match(html, /href="https:\/\/wa\.me\/\?text=/);
-  assert.doesNotMatch(html, /href="tel:0766832030"/);
+  assert.match(html, /href="tel:0766832030"/);
   assert.match(html, /Un projet clair/);
   assert.match(html, /Demander un devis/);
   assert.doesNotMatch(html, /Étape 1 sur 2/);
@@ -51,5 +51,14 @@ test("preserves the five validated routes", async () => {
     const response = await render(path);
     assert.equal(response.status, 200, path);
     assert.match(await response.text(), new RegExp(marker), path);
+  }
+});
+
+test("affiche le bouton téléphonique illustré sur toutes les pages", async () => {
+  for (const path of ["/", "/interieur", "/exterieur", "/bois", "/atf-signature"]) {
+    const html = await (await render(path)).text();
+    assert.match(html, /class="site-contact-button"/, path);
+    assert.match(html, /href="tel:0766832030"/, path);
+    assert.match(html, /src="\/media\/contact-button\.png"/, path);
   }
 });

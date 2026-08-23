@@ -254,6 +254,67 @@ body.modal-open{overflow:hidden}
   letter-spacing: 0.02em;
 }
 
+/* Bouton téléphonique commun à toutes les pages. */
+.site-contact-button {
+  position: absolute;
+  z-index: 22;
+  left: 50%;
+  bottom: 5px;
+  width: 168px;
+  min-height: 44px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  border-radius: 12px;
+  text-decoration: none;
+  filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.22));
+  transition: transform 160ms ease, filter 160ms ease;
+}
+
+.site-contact-button img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.site-contact-button:hover {
+  transform: translateX(-50%) translateY(-2px);
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.3)) brightness(1.04);
+}
+
+.site-contact-button:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 3px;
+}
+
+@media (max-width: 799px) {
+  header {
+    height: 126px;
+    align-items: flex-start;
+    padding-top: 9px;
+  }
+
+  header nav {
+    inset: 126px 0 auto;
+  }
+}
+
+@media (min-width: 800px) {
+  .site-contact-button {
+    top: 22px;
+    right: 3vw;
+    bottom: auto;
+    left: auto;
+    width: clamp(170px, 22vw, 280px);
+    min-height: 56px;
+    transform: none;
+  }
+
+  .site-contact-button:hover {
+    transform: translateY(-2px);
+  }
+}
+
 .home-phone:hover {
   filter: saturate(1.15) brightness(1.05);
 }

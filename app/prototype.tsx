@@ -29,6 +29,18 @@ function Logo() {
   );
 }
 
+function ContactButton() {
+  return (
+    <a
+      className="site-contact-button"
+      href={siteConfig.contact.phoneHref}
+      aria-label={`Nous contacter au ${siteConfig.contact.phoneDisplay}`}
+    >
+      <img src="/media/contact-button.png" alt="" width={2172} height={724} />
+    </a>
+  );
+}
+
 /** Bande discrète au-dessus du header (jamais dans le header lui-même) : aucune
  *  superposition possible avec le logo, le menu ou les CTA quelle que soit la largeur. */
 function SocialBar() {
@@ -304,6 +316,7 @@ export function Prototype({ initialPage }: { initialPage: string }) {
         <a className="wordmark" href="/">
           <Logo />
         </a>
+        <ContactButton />
         <button className="menu" aria-expanded={menu} onClick={() => setMenu(!menu)}>
           {menu ? "Fermer" : "Menu"}
         </button>
