@@ -36,7 +36,7 @@ function ContactButton() {
       href={siteConfig.contact.phoneHref}
       aria-label={`Nous contacter au ${siteConfig.contact.phoneDisplay}`}
     >
-      <img src="/media/contact-button.png" alt="" width={2172} height={724} />
+      <img src="/media/contact-button.png" alt="" width={1832} height={858} />
     </a>
   );
 }
