@@ -100,17 +100,15 @@ export const atfSignatureConfig: SiteConfig = {
     shortEyebrow: "Majid · dirigeant",
     quoteEyebrow: "Majid Touati · dirigeant",
     quote: "Mon rôle est d’écouter, de coordonner les bonnes compétences et de veiller à l’exigence du résultat.",
-    quoteNote: "[TEXTE DE MAJID À CONFIRMER]",
     sectionTitle: "Écouter. Coordonner. Exiger.",
     bio: [
       "Je suis l’interlocuteur du client. Mon rôle est de comprendre le projet, de réunir les bonnes compétences et de veiller à la cohérence du travail.",
       "Sur un mur, une façade ou une porte, la question posée est toujours la même : remplacer est-il vraiment nécessaire, ou peut-on remettre en état pour un résultat aussi net ? Cette logique — rénover, transformer, faire durer — guide à égalité les trois savoir-faire d’ATF Signature : intérieur, extérieur, bois/meubles/portes.",
     ],
-    bioNote: "[HISTOIRE ET MOTS DE MAJID À CONFIRMER]",
   },
 
   team: {
-    specialties: ["[SPÉCIALITÉ À CONFIRMER]", "[SPÉCIALITÉ À CONFIRMER]"],
+    specialties: [],
   },
 
   process: {

@@ -65,6 +65,7 @@ export function siteMetadataBase(config: SiteConfig): Metadata {
     title: config.business.homeMeta.title,
     description: config.business.homeMeta.description,
     metadataBase: new URL(config.seo.siteUrl),
+    icons: { icon: "/favicon.svg" },
     openGraph: {
       siteName: config.business.name,
       locale: config.seo.ogLocale,
