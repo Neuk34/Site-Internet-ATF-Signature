@@ -258,11 +258,10 @@ body.modal-open{overflow:hidden}
 .site-contact-button {
   position: absolute;
   z-index: 22;
-  left: 50%;
+  left: 14px;
   bottom: 5px;
   width: 168px;
   min-height: 44px;
-  transform: translateX(-50%);
   display: flex;
   align-items: center;
   border-radius: 12px;
@@ -278,7 +277,7 @@ body.modal-open{overflow:hidden}
 }
 
 .site-contact-button:hover {
-  transform: translateX(-50%) translateY(-2px);
+  transform: translateY(-2px);
   filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.3)) brightness(1.04);
 }
 
@@ -302,9 +301,9 @@ body.modal-open{overflow:hidden}
 @media (min-width: 800px) {
   .site-contact-button {
     top: 22px;
-    right: 3vw;
+    right: auto;
     bottom: auto;
-    left: auto;
+    left: 3vw;
     width: clamp(170px, 22vw, 280px);
     min-height: 56px;
     transform: none;
