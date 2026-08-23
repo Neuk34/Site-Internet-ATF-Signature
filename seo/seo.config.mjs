@@ -30,7 +30,7 @@ export const seoConfig = {
     // Toute commune détectée dans la recherche devient un LOCAL_PAGE_CANDIDATE, jamais une page.
     communes: [],
     // Communes où une activité concurrentielle réelle a été observée pendant l'audit SEO local
-    // (22/08/2026), sans que T.A.F Qualité y intervienne de façon confirmée. Source de départ
+    // (22/08/2026), sans qu'ATF Signature y intervienne de façon confirmée. Source de départ
     // pour `opportunities`, qui les transforme en LOCAL_PAGE_CANDIDATE — jamais en page.
     observedCommunes: ["Avrillé", "Beaucouzé", "Trélazé", "Les Ponts-de-Cé"],
   },
@@ -100,7 +100,7 @@ export const seoConfig = {
       "restauration meuble Angers",
       "rénovation de porte Angers",
     ],
-    "taf-qualite": ["T.A.F Qualité", "Majid Touati", "avis T.A.F Qualité"],
+    "atf-signature": ["ATF Signature", "Majid Touati", "avis ATF Signature"],
   },
 
   // Opportunités métiers identifiées par la recherche mais non confirmées par Majid.

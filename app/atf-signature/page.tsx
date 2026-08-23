@@ -5,5 +5,5 @@ import { buildAboutMetadata } from "../config/helpers";
 export const metadata = buildAboutMetadata(siteConfig);
 
 export default function Page() {
-  return <Prototype initialPage="taf-qualite" />;
+  return <Prototype initialPage="atf-signature" />;
 }

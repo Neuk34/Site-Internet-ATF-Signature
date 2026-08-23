@@ -1,12 +1,12 @@
-import { tafQualiteConfig } from "./taf-qualite.config.ts";
+import { atfSignatureConfig } from "./atf-signature.config.ts";
 
 /**
  * Point de bascule unique : pour générer un nouveau site à partir de ce gabarit,
- * dupliquez app/config/taf-qualite.config.ts (voir app/config/examples/ pour un
+ * dupliquez app/config/atf-signature.config.ts (voir app/config/examples/ pour un
  * squelette) et changez les deux lignes ci-dessous pour pointer vers votre fichier.
  * Rien d'autre dans le code n'a besoin de changer.
  */
-export const siteConfig = tafQualiteConfig;
+export const siteConfig = atfSignatureConfig;
 
 /**
  * Chemin (relatif à la racine du dépôt) du fichier importé ci-dessus. seo/seo.config.mjs
@@ -14,6 +14,6 @@ export const siteConfig = tafQualiteConfig;
  * lors d'un META_UPDATE - une seule ligne à tenir à jour avec siteConfig, plutôt que de
  * recopier ce chemin une seconde fois dans l'outil SEO.
  */
-export const activeConfigFile = "app/config/taf-qualite.config.ts";
+export const activeConfigFile = "app/config/atf-signature.config.ts";
 
 export * from "./types.ts";

@@ -220,10 +220,10 @@ test("META_UPDATE sur la page à propos édite meta.title, jamais l'accroche (h1
 
   const config = {
     ...seoConfig,
-    pages: [{ id: "taf-qualite", path: "/taf-qualite", file: "app/taf-qualite/page.tsx", metaPath: { file: relativeFile, kind: "about" } }],
+    pages: [{ id: "atf-signature", path: "/atf-signature", file: "app/atf-signature/page.tsx", metaPath: { file: relativeFile, kind: "about" } }],
   };
 
-  const decisions = { approved_changes: [{ type: "META_UPDATE", page: "taf-qualite", title: "Nouveau titre SEO à propos" }] };
+  const decisions = { approved_changes: [{ type: "META_UPDATE", page: "atf-signature", title: "Nouveau titre SEO à propos" }] };
   const results = runUpdate(dir, decisions, config, { dryRun: false, allowContentEdit: false });
   assert.equal(results[0].status, "APPLIED");
 

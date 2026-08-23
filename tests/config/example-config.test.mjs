@@ -4,7 +4,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { siteConfig } from "../../app/config/index.ts";
-import { tafQualiteConfig } from "../../app/config/taf-qualite.config.ts";
+import { atfSignatureConfig } from "../../app/config/atf-signature.config.ts";
 import { exempleArtisanConfig } from "../../app/config/examples/exemple-artisan.config.ts";
 import {
   buildHomeMetadata,
@@ -15,25 +15,25 @@ import {
   publicPaths,
 } from "../../app/config/helpers.ts";
 
-test("le site actif reste T.A.F Qualité", () => {
-  assert.equal(siteConfig, tafQualiteConfig, "app/config/index.ts doit pointer vers taf-qualite.config.ts par défaut");
+test("le site actif reste ATF Signature", () => {
+  assert.equal(siteConfig, atfSignatureConfig, "app/config/index.ts doit pointer vers atf-signature.config.ts par défaut");
   assert.notEqual(siteConfig, exempleArtisanConfig, "la config fictive ne doit jamais devenir la config active");
 });
 
 test("la config fictive change bien le nom, les couleurs et les coordonnées", () => {
-  assert.notEqual(exempleArtisanConfig.business.name, tafQualiteConfig.business.name);
+  assert.notEqual(exempleArtisanConfig.business.name, atfSignatureConfig.business.name);
   assert.equal(exempleArtisanConfig.business.name, "Dupont Plomberie");
 
-  assert.notEqual(exempleArtisanConfig.colors.navy, tafQualiteConfig.colors.navy);
-  assert.notEqual(exempleArtisanConfig.colors.accent, tafQualiteConfig.colors.accent);
+  assert.notEqual(exempleArtisanConfig.colors.navy, atfSignatureConfig.colors.navy);
+  assert.notEqual(exempleArtisanConfig.colors.accent, atfSignatureConfig.colors.accent);
 
-  assert.notEqual(exempleArtisanConfig.contact.phoneDisplay, tafQualiteConfig.contact.phoneDisplay);
-  assert.notEqual(exempleArtisanConfig.contact.whatsappMessage, tafQualiteConfig.contact.whatsappMessage);
+  assert.notEqual(exempleArtisanConfig.contact.phoneDisplay, atfSignatureConfig.contact.phoneDisplay);
+  assert.notEqual(exempleArtisanConfig.contact.whatsappMessage, atfSignatureConfig.contact.whatsappMessage);
 });
 
 test("le lien WhatsApp est construit à partir de la config, numéro inclus si fourni", () => {
-  const tafUrl = buildWhatsappUrl(tafQualiteConfig.contact);
-  assert.equal(tafUrl, "https://wa.me/?text=" + encodeURIComponent(tafQualiteConfig.contact.whatsappMessage));
+  const tafUrl = buildWhatsappUrl(atfSignatureConfig.contact);
+  assert.equal(tafUrl, "https://wa.me/?text=" + encodeURIComponent(atfSignatureConfig.contact.whatsappMessage));
 
   const exempleUrl = buildWhatsappUrl(exempleArtisanConfig.contact);
   assert.equal(
@@ -43,7 +43,7 @@ test("le lien WhatsApp est construit à partir de la config, numéro inclus si f
 });
 
 test("les catégories de services sont entièrement différentes et pilotent le formulaire", () => {
-  const tafKeys = tafQualiteConfig.services.map((service) => service.key).sort();
+  const tafKeys = atfSignatureConfig.services.map((service) => service.key).sort();
   const exempleKeys = exempleArtisanConfig.services.map((service) => service.key).sort();
   assert.notDeepEqual(exempleKeys, tafKeys);
   assert.deepEqual(exempleKeys, ["chaudieres", "depannage", "installation"]);
@@ -58,19 +58,19 @@ test("les catégories de services sont entièrement différentes et pilotent le 
     assert.ok(service.meta.title.includes("Dupont Plomberie"), `meta.title de "${key}" doit mentionner l'entreprise`);
   }
 
-  assert.throws(() => findService(exempleArtisanConfig, "interieur"), /Unknown service key/, "les clés T.A.F Qualité ne doivent pas fuiter dans une autre config");
+  assert.throws(() => findService(exempleArtisanConfig, "interieur"), /Unknown service key/, "les clés ATF Signature ne doivent pas fuiter dans une autre config");
 });
 
 test("les textes de page (accueil, service, à propos) sont propres à chaque config", () => {
-  assert.notEqual(exempleArtisanConfig.business.hero.headlineLead, tafQualiteConfig.business.hero.headlineLead);
-  assert.notEqual(exempleArtisanConfig.about.title, tafQualiteConfig.about.title);
-  assert.notEqual(exempleArtisanConfig.leader.name, tafQualiteConfig.leader.name);
-  assert.notEqual(exempleArtisanConfig.process.steps.length && exempleArtisanConfig.process.steps[0].title, tafQualiteConfig.process.steps[0].title);
+  assert.notEqual(exempleArtisanConfig.business.hero.headlineLead, atfSignatureConfig.business.hero.headlineLead);
+  assert.notEqual(exempleArtisanConfig.about.title, atfSignatureConfig.about.title);
+  assert.notEqual(exempleArtisanConfig.leader.name, atfSignatureConfig.leader.name);
+  assert.notEqual(exempleArtisanConfig.process.steps.length && exempleArtisanConfig.process.steps[0].title, atfSignatureConfig.process.steps[0].title);
 });
 
 test("les options de formulaire sont propres à chaque config", () => {
-  assert.notEqual(exempleArtisanConfig.form.projectLabel, tafQualiteConfig.form.projectLabel);
-  assert.notEqual(exempleArtisanConfig.form.needsPlaceholder, tafQualiteConfig.form.needsPlaceholder);
+  assert.notEqual(exempleArtisanConfig.form.projectLabel, atfSignatureConfig.form.projectLabel);
+  assert.notEqual(exempleArtisanConfig.form.needsPlaceholder, atfSignatureConfig.form.needsPlaceholder);
   // Les options du <select> "type de projet" viennent des services, pas d'une liste séparée à
   // dupliquer : elles suivent donc automatiquement les 3 métiers de chaque config.
   const projectOptions = exempleArtisanConfig.services.map((service) => service.projectLabel);
@@ -78,9 +78,9 @@ test("les options de formulaire sont propres à chaque config", () => {
 });
 
 test("les mentions légales sont propres à chaque config", () => {
-  assert.notEqual(exempleArtisanConfig.legal.editorLine, tafQualiteConfig.legal.editorLine);
+  assert.notEqual(exempleArtisanConfig.legal.editorLine, atfSignatureConfig.legal.editorLine);
   assert.ok(exempleArtisanConfig.legal.editorLine.includes("Dupont Plomberie"));
-  assert.ok(!exempleArtisanConfig.legal.editorLine.includes("T.A.F Qualité"), "aucune trace de T.A.F Qualité ne doit fuiter dans une autre config");
+  assert.ok(!exempleArtisanConfig.legal.editorLine.includes("ATF Signature"), "aucune trace d'ATF Signature ne doit fuiter dans une autre config");
 });
 
 test("les métadonnées (title/description/canonical/sitemap) suivent la config fictive", () => {
@@ -100,11 +100,11 @@ test("les métadonnées (title/description/canonical/sitemap) suivent la config 
 });
 
 test("le micro-texte du badge de devis flottant est propre à chaque config", () => {
-  assert.notDeepEqual(exempleArtisanConfig.cta.stickyQuoteBadge, tafQualiteConfig.cta.stickyQuoteBadge);
+  assert.notDeepEqual(exempleArtisanConfig.cta.stickyQuoteBadge, atfSignatureConfig.cta.stickyQuoteBadge);
   assert.equal(exempleArtisanConfig.cta.stickyQuoteBadge.line1, "DEMANDER UN DEVIS");
 });
 
-test("la page à propos peut vivre à une autre adresse que /taf-qualite", () => {
-  assert.notEqual(exempleArtisanConfig.nav.aboutPath, tafQualiteConfig.nav.aboutPath);
+test("la page à propos peut vivre à une autre adresse que /atf-signature", () => {
+  assert.notEqual(exempleArtisanConfig.nav.aboutPath, atfSignatureConfig.nav.aboutPath);
   assert.equal(exempleArtisanConfig.nav.aboutPath, "/dupont-plomberie");
 });

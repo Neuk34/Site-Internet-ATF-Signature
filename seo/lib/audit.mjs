@@ -128,8 +128,8 @@ function analyzePublicPage(page, allTitles, allDescriptions) {
   if (!/Angers/i.test(text)) {
     f.push(finding(path, "MISSING_LOCAL_SIGNAL", "P2", "LOCAL", "Aucune mention \"Angers\" détectée sur cette page."));
   }
-  if (!/T\.A\.F/i.test(text)) {
-    f.push(finding(path, "MISSING_BRAND_SIGNAL", "P2", "LOCAL", "Aucune mention de la marque T.A.F Qualité détectée sur cette page."));
+  if (!/ATF Signature/i.test(text)) {
+    f.push(finding(path, "MISSING_BRAND_SIGNAL", "P2", "LOCAL", "Aucune mention de la marque ATF Signature détectée sur cette page."));
   }
 
   // --- BUSINESS_DATA_UNCONFIRMED : jamais une erreur SEO, un simple rappel ---

@@ -1,23 +1,23 @@
 import type { SiteConfig } from "./types.ts";
 
 /**
- * Configuration réelle de T.A.F Qualité — c'est la seule source de contenu métier
+ * Configuration réelle d'ATF Signature — c'est la seule source de contenu métier
  * pour ce site. app/prototype.tsx et les fichiers app/*\/page.tsx ne connaissent que
- * la forme SiteConfig, jamais "T.A.F Qualité", "Majid" ou "Angers" en dur.
+ * la forme SiteConfig, jamais "ATF Signature", "Majid" ou "Angers" en dur.
  */
-export const tafQualiteConfig: SiteConfig = {
+export const atfSignatureConfig: SiteConfig = {
   business: {
-    name: "T.A.F Qualité",
+    name: "ATF Signature",
     homeMeta: {
-      title: "T.A.F Qualité — Rénovation intérieure, extérieure et bois à Angers",
+      title: "ATF Signature — Rénovation intérieure, extérieure et bois à Angers",
       description:
-        "Peinture, sols, façades, terrasses, portes et meubles : T.A.F Qualité rénove et remet en état à Angers, avec Majid Touati comme interlocuteur unique.",
+        "Peinture, sols, façades, terrasses, portes et meubles : ATF Signature rénove et remet en état à Angers, avec Majid Touati comme interlocuteur unique.",
     },
     hero: {
       eyebrow: "Intérieur · Extérieur · Bois — Angers et alentours",
       headlineLead: "Une équipe. Trois savoir-faire.",
       headlineEmphasis: "Un seul interlocuteur.",
-      text: "T.A.F Qualité rénove l’intérieur et l’extérieur des maisons à Angers, et remet en état ce qui peut encore servir — portes, meubles, boiseries — plutôt que de systématiquement tout remplacer.",
+      text: "ATF Signature rénove l’intérieur et l’extérieur des maisons à Angers, et remet en état ce qui peut encore servir — portes, meubles, boiseries — plutôt que de systématiquement tout remplacer.",
       benefits: ["Devis détaillé", "Équipe coordonnée", "Suivi du projet"],
       footnote: "Premier échange sans engagement · Projets étudiés jusqu’à Nantes selon leur nature.",
     },
@@ -35,15 +35,15 @@ export const tafQualiteConfig: SiteConfig = {
     philosophy: {
       eyebrow: "Notre philosophie",
       title: "Rénover. Transformer. Faire durer.",
-      text: "Chez T.A.F Qualité, remplacer n’est pas le seul réflexe. Un mur fatigué, une façade abîmée, une porte qui ferme mal : souvent, remettre en état coûte moins cher et donne un résultat tout aussi net qu’un remplacement complet.",
+      text: "Chez ATF Signature, remplacer n’est pas le seul réflexe. Un mur fatigué, une façade abîmée, une porte qui ferme mal : souvent, remettre en état coûte moins cher et donne un résultat tout aussi net qu’un remplacement complet.",
     },
     scope: {
       eyebrow: "Notre périmètre",
       title: "Ce que nous faisons — et ce que nous ne faisons pas.",
-      text: "T.A.F Qualité intervient sur la rénovation intérieure, la rénovation extérieure et la remise en état d’éléments bois (portes, meubles, boiseries). Nous n’intervenons pas sur la toiture, l’isolation, la maçonnerie lourde ou le gros œuvre — nous préférons être clairs sur notre périmètre plutôt que de nous présenter comme une entreprise tous corps d’état.",
+      text: "ATF Signature intervient sur la rénovation intérieure, la rénovation extérieure et la remise en état d’éléments bois (portes, meubles, boiseries). Nous n’intervenons pas sur la toiture, l’isolation, la maçonnerie lourde ou le gros œuvre — nous préférons être clairs sur notre périmètre plutôt que de nous présenter comme une entreprise tous corps d’état.",
     },
     guarantees: {
-      eyebrow: "Les engagements T.A.F Qualité",
+      eyebrow: "Les engagements ATF Signature",
       title: "Vous savez où vous allez.",
       items: [
         {
@@ -78,7 +78,7 @@ export const tafQualiteConfig: SiteConfig = {
     phoneHref: "tel:0766832030",
     phoneInternational: "+33766832030",
     whatsappMessage:
-      "Bonjour Majid, je viens de visiter le site T.A.F Qualité et j’aimerais échanger avec vous au sujet de mon projet.",
+      "Bonjour Majid, je viens de visiter le site ATF Signature et j’aimerais échanger avec vous au sujet de mon projet.",
   },
 
   serviceArea: {
@@ -97,7 +97,7 @@ export const tafQualiteConfig: SiteConfig = {
     sectionTitle: "Écouter. Coordonner. Exiger.",
     bio: [
       "Je suis l’interlocuteur du client. Mon rôle est de comprendre le projet, de réunir les bonnes compétences et de veiller à la cohérence du travail.",
-      "Sur un mur, une façade ou une porte, la question posée est toujours la même : remplacer est-il vraiment nécessaire, ou peut-on remettre en état pour un résultat aussi net ? Cette logique — rénover, transformer, faire durer — guide à égalité les trois savoir-faire de T.A.F Qualité : intérieur, extérieur, bois/meubles/portes.",
+      "Sur un mur, une façade ou une porte, la question posée est toujours la même : remplacer est-il vraiment nécessaire, ou peut-on remettre en état pour un résultat aussi net ? Cette logique — rénover, transformer, faire durer — guide à égalité les trois savoir-faire d’ATF Signature : intérieur, extérieur, bois/meubles/portes.",
     ],
     bioNote: "[HISTOIRE ET MOTS DE MAJID À CONFIRMER]",
   },
@@ -145,7 +145,7 @@ export const tafQualiteConfig: SiteConfig = {
       eyebrow: "Travaux intérieurs",
       heroTitle: "Repeindre, refaire un sol, moderniser une pièce — sans tout casser.",
       heroText:
-        "De la préparation des murs aux finitions de cuisine ou de salle de bains, T.A.F Qualité prend en charge vos travaux intérieurs à Angers avec un seul interlocuteur du début à la fin.",
+        "De la préparation des murs aux finitions de cuisine ou de salle de bains, ATF Signature prend en charge vos travaux intérieurs à Angers avec un seul interlocuteur du début à la fin.",
       ctaLabel: "Obtenir un devis pour ma rénovation intérieure",
       groups: [
         {
@@ -173,9 +173,9 @@ export const tafQualiteConfig: SiteConfig = {
       },
       faq: [],
       meta: {
-        title: "Rénovation intérieure à Angers — Peinture, sols, cuisine — T.A.F Qualité",
+        title: "Rénovation intérieure à Angers — Peinture, sols, cuisine — ATF Signature",
         description:
-          "Peinture, enduits, sols, cuisine, salle de bains : T.A.F Qualité rénove l'intérieur de votre maison à Angers avec un devis détaillé.",
+          "Peinture, enduits, sols, cuisine, salle de bains : ATF Signature rénove l'intérieur de votre maison à Angers avec un devis détaillé.",
       },
     },
     {
@@ -188,7 +188,7 @@ export const tafQualiteConfig: SiteConfig = {
       eyebrow: "Travaux extérieurs",
       heroTitle: "Ce qui est dehors s’use différemment. On s’en occupe pareil.",
       heroText:
-        "Façade, terrasse, clôture, portail : T.A.F Qualité remet en état et protège les extérieurs de votre maison à Angers, avec la même exigence que pour l’intérieur.",
+        "Façade, terrasse, clôture, portail : ATF Signature remet en état et protège les extérieurs de votre maison à Angers, avec la même exigence que pour l’intérieur.",
       ctaLabel: "Obtenir un devis pour ma rénovation extérieure",
       groups: [
         {
@@ -206,8 +206,8 @@ export const tafQualiteConfig: SiteConfig = {
       },
       faq: [],
       meta: {
-        title: "Rénovation extérieure à Angers — Façade, terrasse, portail — T.A.F Qualité",
-        description: "Façades, terrasses, clôtures, portails, volets : T.A.F Qualité remet en état vos extérieurs à Angers avec un interlocuteur unique.",
+        title: "Rénovation extérieure à Angers — Façade, terrasse, portail — ATF Signature",
+        description: "Façades, terrasses, clôtures, portails, volets : ATF Signature remet en état vos extérieurs à Angers avec un interlocuteur unique.",
       },
     },
     {
@@ -220,7 +220,7 @@ export const tafQualiteConfig: SiteConfig = {
       eyebrow: "Bois, meubles, portes",
       heroTitle: "Une porte, un meuble : parfois, il suffit de les remettre en état.",
       heroText:
-        "Une porte qui ferme mal, un meuble qui a perdu de son éclat, une boiserie marquée par le temps : T.A.F Qualité les décape, les répare et leur redonne une nouvelle finition — sans passer par un chantier complet.",
+        "Une porte qui ferme mal, un meuble qui a perdu de son éclat, une boiserie marquée par le temps : ATF Signature les décape, les répare et leur redonne une nouvelle finition — sans passer par un chantier complet.",
       ctaLabel: "Faire estimer ma porte ou mon meuble",
       groups: [
         { title: "Ce que nous remettons en état", items: ["Portes", "Meubles", "Boiseries intérieures", "Boiseries extérieures"] },
@@ -246,30 +246,30 @@ export const tafQualiteConfig: SiteConfig = {
         },
       ],
       meta: {
-        title: "Rénovation de portes et de meubles à Angers — T.A.F Qualité",
+        title: "Rénovation de portes et de meubles à Angers — ATF Signature",
         description:
-          "Décapage, ponçage, peinture, vernis : T.A.F Qualité remet en état vos portes, meubles et boiseries à Angers, sans passer par un chantier complet.",
+          "Décapage, ponçage, peinture, vernis : ATF Signature remet en état vos portes, meubles et boiseries à Angers, sans passer par un chantier complet.",
       },
     },
   ],
 
   about: {
-    eyebrow: "T.A.F Qualité",
+    eyebrow: "ATF Signature",
     title: "Le travail bien fait commence par les bonnes personnes.",
     lede: "Une entreprise dirigée par Majid Touati, entourée d’une équipe aux savoir-faire complémentaires.",
     teamEyebrow: "L’équipe",
     teamTitle: "À chacun son savoir-faire.",
     meta: {
-      title: "T.A.F Qualité — L'entreprise et son dirigeant, Majid Touati",
+      title: "ATF Signature — L'entreprise et son dirigeant, Majid Touati",
       description:
-        "Majid Touati dirige T.A.F Qualité à Angers : rénovation intérieure, extérieure et remise en état de portes et meubles, avec un interlocuteur unique.",
+        "Majid Touati dirige ATF Signature à Angers : rénovation intérieure, extérieure et remise en état de portes et meubles, avec un interlocuteur unique.",
     },
   },
 
   nav: {
     homeLabel: "Accueil",
-    aboutLabel: "T.A.F Qualité",
-    aboutPath: "/taf-qualite",
+    aboutLabel: "ATF Signature",
+    aboutPath: "/atf-signature",
   },
 
   footer: {
@@ -286,7 +286,7 @@ export const tafQualiteConfig: SiteConfig = {
   },
 
   legal: {
-    editorLine: "T.A.F Qualité — forme juridique, capital, SIREN/SIRET, adresse, téléphone et email à confirmer.",
+    editorLine: "ATF Signature — forme juridique, capital, SIREN/SIRET, adresse, téléphone et email à confirmer.",
     publicationDirectorLine: "Majid Touati — à confirmer.",
     hostingLine: "identité, adresse et téléphone de l’hébergeur à compléter avant publication.",
     insuranceLine: "références de l’assurance professionnelle, de la garantie décennale et du médiateur de la consommation à compléter.",
@@ -318,7 +318,7 @@ export const tafQualiteConfig: SiteConfig = {
     contactPreferenceLabel: "Moyen de contact préféré",
     contactPreferenceOptions: ["Téléphone", "Email", "WhatsApp"],
     mediaUploadLabel: "Photos ou courte vidéo",
-    consentText: "J’accepte que T.A.F Qualité utilise ces informations pour répondre à ma demande.",
+    consentText: "J’accepte qu’ATF Signature utilise ces informations pour répondre à ma demande.",
     consentLinkLabel: "En savoir plus",
     backLabel: "← Retour",
     submitLabel: "Simuler l’envoi",
@@ -339,16 +339,16 @@ export const tafQualiteConfig: SiteConfig = {
   media: {
     logo: {
       src: "/media/logo.png",
-      alt: "T.A.F Qualité",
+      alt: "ATF Signature",
       isPlaceholder: false,
-      aspectRatio: "1536/525",
+      aspectRatio: "1536/590",
       objectPosition: "top",
     },
     heroImage: {
       src: "/media/hero-renovation.jpg",
-      alt: "Réalisation T.A.F Qualité",
+      alt: "Réalisation ATF Signature",
       isPlaceholder: true,
-      placeholderLabel: "Réalisation T.A.F Qualité à insérer",
+      placeholderLabel: "Réalisation ATF Signature à insérer",
       stockCredit: "Pexels",
     },
     // Non affichée par les composants actuels (aucune section "photo d'équipe" sur
@@ -356,7 +356,7 @@ export const tafQualiteConfig: SiteConfig = {
     // rétablirait cette section ait un emplacement de config prêt à l'emploi.
     teamPhoto: {
       src: "/media/exterieur.jpg",
-      alt: "Équipe T.A.F Qualité",
+      alt: "Équipe ATF Signature",
       isPlaceholder: true,
       placeholderLabel: "Photo de l’équipe à insérer",
       stockCredit: "Pexels",
@@ -382,7 +382,7 @@ export const tafQualiteConfig: SiteConfig = {
         apres: { src: "/media/details.jpg", isPlaceholder: true, stockCredit: "Pexels" },
       },
     },
-    socialShareImage: { src: "/media/logo.png", alt: "Logo T.A.F Qualité", isPlaceholder: false },
+    socialShareImage: { src: "/media/logo.png", alt: "Logo ATF Signature", isPlaceholder: false },
   },
 
   seo: {

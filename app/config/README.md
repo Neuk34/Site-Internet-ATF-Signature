@@ -9,11 +9,11 @@ Tout le contenu propre à une entreprise (nom, couleurs, coordonnées, prestatio
 
 - `types.ts` — la forme (TypeScript) de la configuration. À lire en premier : chaque
   champ est commenté.
-- `taf-qualite.config.ts` — la configuration réelle, actuellement servie.
+- `atf-signature.config.ts` — la configuration réelle, actuellement servie.
 - `helpers.ts` — petites fonctions utilisées par les pages (`app/*/page.tsx`) pour
   construire les `Metadata` Next.js et le lien WhatsApp à partir de la config.
 - `index.ts` — **le seul point de bascule** : `siteConfig` pointe vers
-  `taf-qualite.config.ts`. Rien d'autre dans le code n'importe une config
+  `atf-signature.config.ts`. Rien d'autre dans le code n'importe une config
   directement.
 - `examples/exemple-artisan.config.ts` — un artisan fictif (plombier) utilisé
   uniquement par `tests/config/example-config.test.mjs` pour vérifier que le
@@ -22,7 +22,16 @@ Tout le contenu propre à une entreprise (nom, couleurs, coordonnées, prestatio
 
 ## Créer un nouveau site artisan à partir de ce gabarit
 
-1. **Dupliquer la config.** Copier `taf-qualite.config.ts` sous un nouveau nom
+### Méthode assistée (recommandée)
+
+Lancer `npm run nouveau-client` et répondre aux questions. Le générateur crée une
+configuration complète dans `app/config/clients/`, un dossier de médias dédié et
+une checklist dans `clients/`. Par sécurité, il ne remplace jamais une configuration
+existante et ne modifie pas automatiquement le site actif.
+
+### Méthode manuelle
+
+1. **Dupliquer la config.** Copier `atf-signature.config.ts` sous un nouveau nom
    (ex. `mon-artisan.config.ts`) et remplir chaque champ avec le contenu réel de
    l'entreprise. `examples/exemple-artisan.config.ts` montre à quoi ressemble une
    config pour un métier complètement différent.

@@ -329,7 +329,7 @@ export interface NavConfig {
 }
 
 export interface SeoConfig {
-  /** Domaine complet de production, ex. "https://taf-qualite.fr". Utiliser la variable
+  /** Domaine complet de production, ex. "https://atf-signature.fr". Utiliser la variable
    *  d'environnement SITE_URL plutôt que de coder le domaine en dur ici. */
   siteUrl: string;
   ogLocale: string;

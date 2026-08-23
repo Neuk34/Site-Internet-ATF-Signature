@@ -2,13 +2,13 @@ import type { SiteConfig } from "../types.ts";
 
 /**
  * Configuration fictive utilisée UNIQUEMENT par tests/config/example-config.test.mjs
- * pour vérifier que le gabarit fonctionne bien avec une entreprise différente de
- * T.A.F Qualité (autre nom, autre métier, autres couleurs, autres services...).
+ * pour vérifier que le gabarit fonctionne bien avec une entreprise différente
+ * d'ATF Signature (autre nom, autre métier, autres couleurs, autres services...).
  *
  * Ne jamais importer ce fichier depuis app/config/index.ts, layout.tsx ou un
  * app/*\/page.tsx : "Dupont Plomberie" ne doit ni être servi ni devenir un second
  * site en production. Pour créer un VRAI nouveau site, copier ce fichier (ou
- * taf-qualite.config.ts) sous un nouveau nom et le brancher dans app/config/index.ts.
+ * atf-signature.config.ts) sous un nouveau nom et le brancher dans app/config/index.ts.
  */
 export const exempleArtisanConfig: SiteConfig = {
   business: {
