@@ -25,6 +25,7 @@ test("renders the ATF Signature prototype and conversion journey", async () => {
   assert.doesNotMatch(html, /Étape 1 sur 2/);
   assert.match(html, /Mentions légales/);
   assert.match(html, /Politique de confidentialité/);
+  assert.doesNotMatch(html, /<a class="wordmark"/);
   assert.doesNotMatch(html, /Your site is taking shape|codex-preview/);
 });
 

@@ -313,9 +313,9 @@ export function Prototype({ initialPage }: { initialPage: string }) {
     <div>
       <SocialBar />
       <header>
-        <a className="wordmark" href="/">
+        <div className="wordmark">
           <Logo />
-        </a>
+        </div>
         <ContactButton />
         <button className="menu" aria-expanded={menu} onClick={() => setMenu(!menu)}>
           {menu ? "Fermer" : "Menu"}
