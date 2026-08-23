@@ -1,11 +1,9 @@
-import type { Metadata } from "next";
 import { Prototype } from "../prototype";
+import { siteConfig } from "../config";
+import { buildAboutMetadata } from "../config/helpers";
 
-export const metadata: Metadata = {
-  title: "T.A.F Qualité — L'entreprise et son dirigeant, Majid Touati",
-  description:
-    "Majid Touati dirige T.A.F Qualité à Angers : rénovation intérieure, extérieure et remise en état de portes et meubles, avec un interlocuteur unique.",
-  alternates: { canonical: "/taf-qualite" },
-};
+export const metadata = buildAboutMetadata(siteConfig);
 
-export default function Page() { return <Prototype initialPage="taf-qualite" />; }
+export default function Page() {
+  return <Prototype initialPage="taf-qualite" />;
+}

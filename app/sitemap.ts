@@ -1,10 +1,11 @@
-import { siteUrl } from "./site";
+import { siteConfig } from "./config";
+import { publicPaths } from "./config/helpers";
 
-// Uniquement les 5 pages commerciales publiques — /boutons-devis et /boutons-contact
+// Uniquement les pages commerciales publiques - /boutons-devis et /boutons-contact
 // restent noindex,nofollow (voir public/robots.txt) et hors sitemap.
 export default function sitemap() {
-  return ["", "/interieur", "/exterieur", "/bois", "/taf-qualite"].map((path) => ({
-    url: `${siteUrl}${path}`,
+  return publicPaths(siteConfig).map((path) => ({
+    url: `${siteConfig.seo.siteUrl}${path}`,
     lastModified: new Date(),
   }));
 }

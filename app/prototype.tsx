@@ -1,30 +1,672 @@
 "use client";
 /* eslint-disable @next/next/no-html-link-for-pages */
-import { useEffect, useRef, useState } from "react";
-type Page="accueil"|"interieur"|"exterieur"|"bois"|"taf-qualite"; type Project="Intérieur"|"Extérieur"|"Bois";
-const nav=[{l:"Accueil",p:"accueil",h:"/"},{l:"Intérieur",p:"interieur",h:"/interieur"},{l:"Extérieur",p:"exterieur",h:"/exterieur"},{l:"Bois",p:"bois",h:"/bois"},{l:"T.A.F Qualité",p:"taf-qualite",h:"/taf-qualite"}];
-function Media({label,tone="clay"}:{label:string;tone?:string}){return <div className={`media ${tone}`} role="img" aria-label={label}><small>PROTOTYPE</small><strong>{label}</strong></div>}
-function JsonLd({data}:{data:Record<string,unknown>}){return <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(data)}}/>}
-function BeforeAfter({subject}:{subject:string}){const [v,setV]=useState<"avant"|"apres">("apres");return <div className="comparison"><div className="tabs" aria-label={`Comparer ${subject}`}><button aria-pressed={v==="avant"} onClick={()=>setV("avant")}>Avant</button><button aria-pressed={v==="apres"} onClick={()=>setV("apres")}>Après</button></div><div key={v} className="fade"><Media label={`${subject} — photo ${v} à insérer`} tone={v==="avant"?"ink":"olive"}/></div></div>}
-const whatsappMessage="Bonjour Majid, je viens de visiter le site T.A.F Qualité et j’aimerais échanger avec vous au sujet de mon projet.";
-function Process(){const steps=[
-  ["01","Vous nous présentez votre projet","Quelques informations, des photos ou une courte vidéo nous aident à comprendre votre besoin."],
-  ["02","Majid échange avec vous","Il précise vos attentes, vérifie la faisabilité et organise une visite si nécessaire."],
-  ["03","Vous recevez une proposition claire","Le périmètre des travaux, les solutions, le prix et les prochaines étapes sont expliqués."],
-  ["04","Notre équipe réalise les travaux","Les compétences nécessaires sont organisées autour d’un interlocuteur identifié."],
-  ["05","Nous vérifions le résultat ensemble","Les finitions sont contrôlées avant la réception et les derniers ajustements éventuels."],
-];return <section className="section process"><div className="process-intro"><p className="eyebrow">Comment ça se passe</p><h2>Un projet clair,<br/>sans surprise.</h2><p>Du premier échange à la réception, chaque étape est compréhensible.</p></div><ol>{steps.map(([n,t,x])=><li key={n}><span>{n}</span><div><h3>{t}</h3><p>{x}</p></div></li>)}</ol></section>}
-function CommercialSelector({quote}:{quote:(p?:Project)=>void}){return <section className="quick-project"><div className="before-showcase"><p className="eyebrow">Trois savoir-faire</p><h2>Voyez la différence.</h2><div className="before-grid"><article><h3>Intérieur</h3><BeforeAfter subject="Intérieur"/></article><article><h3>Extérieur</h3><BeforeAfter subject="Extérieur"/></article><article><h3>Bois</h3><BeforeAfter subject="Bois"/></article></div></div><div className="quick-intro"><p className="eyebrow">Votre projet commence ici</p><h2>Que souhaitez-vous transformer ?</h2><p>Un premier choix suffit. Vous pourrez préciser votre besoin ensuite.</p></div><div className="quick-choices"><button onClick={()=>quote("Intérieur")}><span>01</span><b>Mon intérieur</b><small>Aménager ou rénover</small></button><button onClick={()=>quote("Extérieur")}><span>02</span><b>Mon extérieur</b><small>Transformer ou valoriser</small></button><button onClick={()=>quote("Bois")}><span>03</span><b>Une porte, un meuble</b><small>Remise en état</small></button><button onClick={()=>quote()}><span>04</span><b>Je ne sais pas encore</b><small>Échangeons simplement</small></button></div><p className="quick-note">Étude de votre demande gratuite · Sans engagement</p></section>}
-function Guarantees(){return <section className="section guarantees"><div><p className="eyebrow">Les engagements T.A.F Qualité</p><h2>Vous savez où vous allez.</h2></div><div className="guarantee-grid"><article><span>01</span><h3>Votre projet est cadré</h3><p>Les besoins, les solutions, les travaux et le prix sont expliqués avant de commencer.</p></article><article><span>02</span><h3>Votre chantier est coordonné</h3><p>Majid organise les bonnes compétences et reste votre interlocuteur.</p></article><article><span>03</span><h3>Le résultat est vérifié</h3><p>Les finitions sont contrôlées avec vous avant la réception.</p></article></div></section>}
-function Philosophy({quote:_quote}:{quote:(p?:Project)=>void}){return <section className="section philosophy"><p className="eyebrow">Notre philosophie</p><h2>Rénover. Transformer. Faire durer.</h2><p className="lede">Chez T.A.F Qualité, remplacer n’est pas le seul réflexe. Un mur fatigué, une façade abîmée, une porte qui ferme mal : souvent, remettre en état coûte moins cher et donne un résultat tout aussi net qu’un remplacement complet.</p></section>}
-export function Prototype({initialPage}:{initialPage:Page}){const [menu,setMenu]=useState(false),[step,setStep]=useState(1),[quoteOpen,setQuoteOpen]=useState(false);const [project,setProject]=useState<Project|"">("");const [commune,setCommune]=useState("");const [periode,setPeriode]=useState("");const [budget,setBudget]=useState("");const [besoin,setBesoin]=useState("");const formRef=useRef<HTMLElement>(null),modalRef=useRef<HTMLDivElement>(null),triggerRef=useRef<HTMLElement|null>(null);useEffect(()=>{const q=new URLSearchParams(location.search).get("projet");if(q==="Intérieur"||q==="Extérieur"||q==="Bois"){
-// Synchronisation volontaire avec le contexte transmis par le CTA de la page précédente.
-// eslint-disable-next-line react-hooks/set-state-in-effect
-setProject(q)}if(location.hash==="#devis")setQuoteOpen(true)},[]);useEffect(()=>{if(!quoteOpen)return;const modal=modalRef.current;const focusable=()=>Array.from(modal?.querySelectorAll<HTMLElement>('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])')??[]).filter(element=>!element.hasAttribute("disabled")&&element.getAttribute("aria-hidden")!=="true");const handleKey=(event:KeyboardEvent)=>{if(event.key==="Escape"){event.preventDefault();setQuoteOpen(false);return}if(event.key!=="Tab")return;const elements=focusable();if(!elements.length){event.preventDefault();return}const first=elements[0],last=elements[elements.length-1];if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus()}};const focusFrame=requestAnimationFrame(()=>modal?.querySelector<HTMLElement>(".quote-modal-close")?.focus());document.addEventListener("keydown",handleKey);document.body.classList.add("modal-open");return()=>{cancelAnimationFrame(focusFrame);document.removeEventListener("keydown",handleKey);document.body.classList.remove("modal-open");triggerRef.current?.focus()}},[quoteOpen]);const quote=(p?:Project)=>{triggerRef.current=document.activeElement instanceof HTMLElement?document.activeElement:null;if(p)setProject(p);setStep(1);if(initialPage==="accueil")setQuoteOpen(true);else location.href=`/?projet=${encodeURIComponent(p||project)}#devis`};const preset=initialPage==="interieur"?"Intérieur":initialPage==="exterieur"?"Extérieur":initialPage==="bois"?"Bois":undefined;return <div><header><a className="wordmark" href="/"><img src="/media/logo.png" alt="T.A.F Qualité" width={1536} height={525}/></a><button className="menu" aria-expanded={menu} onClick={()=>setMenu(!menu)}>{menu?"Fermer":"Menu"}</button><nav className={menu?"open":""}>{nav.map(x=><a key={x.p} href={x.h} aria-current={initialPage===x.p?"page":undefined}>{x.l}</a>)}</nav></header><main>{initialPage==="accueil"?<Home quote={quote}/>:initialPage==="taf-qualite"?<About quote={quote}/>:<Universe page={initialPage} quote={quote}/>}</main>{quoteOpen&&<div className="quote-modal" role="dialog" aria-modal="true" aria-labelledby="quote-modal-title" onMouseDown={event=>{if(event.target===event.currentTarget)setQuoteOpen(false)}}><div ref={modalRef} className="quote-modal-panel"><button className="quote-modal-close" type="button" onClick={()=>setQuoteOpen(false)} aria-label="Fermer le formulaire">×</button><Form ref={formRef} project={project} setProject={setProject} commune={commune} setCommune={setCommune} periode={periode} setPeriode={setPeriode} budget={budget} setBudget={setBudget} besoin={besoin} setBesoin={setBesoin} step={step} setStep={setStep}/></div></div>}<LegalFooter/><div className="sticky"><a href="#devis" onClick={e=>{e.preventDefault();quote(preset)}}>Mon projet</a><button onClick={()=>quote(preset)}>Demander un devis</button></div></div>}
-function Home({quote}:{quote:(p?:Project)=>void}){return <><section className="hero commercial-hero"><div><p className="eyebrow">Intérieur · Extérieur · Bois — Angers et alentours</p><h1>Une équipe. Trois savoir-faire.<br/><em>Un seul interlocuteur.</em></h1><p className="lede">T.A.F Qualité rénove l’intérieur et l’extérieur des maisons à Angers, et remet en état ce qui peut encore servir — portes, meubles, boiseries — plutôt que de systématiquement tout remplacer.</p><div className="hero-benefits"><span>✓ Devis détaillé</span><span>✓ Équipe coordonnée</span><span>✓ Suivi du projet</span></div><small>Premier échange sans engagement · Projets étudiés jusqu’à Nantes selon leur nature.</small></div><Media label="Réalisation T.A.F Qualité à insérer"/></section><CommercialSelector quote={quote}/><Process/><Philosophy quote={quote}/></>}
-function Universe({page,quote}:{page:Exclude<Page,"accueil"|"taf-qualite">;quote:(p?:Project)=>void}){const d=page==="interieur"?{p:"Intérieur" as Project,e:"Travaux intérieurs",t:"Repeindre, refaire un sol, moderniser une pièce — sans tout casser.",i:"De la préparation des murs aux finitions de cuisine ou de salle de bains, T.A.F Qualité prend en charge vos travaux intérieurs à Angers avec un seul interlocuteur du début à la fin.",c:"Obtenir un devis pour ma rénovation intérieure",groups:[{title:"Murs et finitions",items:["Peinture murs et plafonds","Préparation et remise en état des murs","Enduits et finitions","Papier peint et revêtements muraux"]},{title:"Sols",items:["Pose et rénovation de sols","Parquet","Stratifié","PVC","Plinthes"]},{title:"Aménagement et pièces clés",items:["Cloisons","Petits travaux d’aménagement","Rénovation et rafraîchissement de pièces","Rénovation de cuisine (peinture, crédence, finitions)","Rénovation de salle de bains et finitions"]},{title:"Petites réparations",items:["Reprises et petites réparations après travaux"]}],note:<>Portes intérieures et boiseries sont reprises dans le cadre de vos travaux de pièce. Pour la remise en état d’une porte ou d’un meuble en particulier, voir <a href="/bois">Bois, meubles et portes</a>.</>,faq:[]}:page==="exterieur"?{p:"Extérieur" as Project,e:"Travaux extérieurs",t:"Ce qui est dehors s’use différemment. On s’en occupe pareil.",i:"Façade, terrasse, clôture, portail : T.A.F Qualité remet en état et protège les extérieurs de votre maison à Angers, avec la même exigence que pour l’intérieur.",c:"Obtenir un devis pour ma rénovation extérieure",groups:[{title:"Façades et surfaces",items:["Peinture extérieure","Façades et murs extérieurs","Nettoyage et remise en état des surfaces","Petites réparations et reprises"]},{title:"Menuiseries extérieures",items:["Volets","Portes et éléments bois extérieurs"]},{title:"Aménagements extérieurs",items:["Terrasses","Clôtures","Portails","Murets"]}],note:<>Pour la remise en état d’une porte ou d’un volet en particulier, indépendamment d’un chantier de façade, voir <a href="/bois">Bois, meubles et portes</a>.</>,faq:[]}:{p:"Bois" as Project,e:"Bois, meubles, portes",t:"Une porte, un meuble : parfois, il suffit de les remettre en état.",i:"Une porte qui ferme mal, un meuble qui a perdu de son éclat, une boiserie marquée par le temps : T.A.F Qualité les décape, les répare et leur redonne une nouvelle finition — sans passer par un chantier complet.",c:"Faire estimer ma porte ou mon meuble",groups:[{title:"Ce que nous remettons en état",items:["Portes","Meubles","Boiseries intérieures","Boiseries extérieures"]},{title:"Comment",items:["Décapage","Ponçage","Réparation et remise en état","Peinture","Vernis","Protection","Changement de teinte ou de couleur","Modernisation"]}],note:<>Un mur, un sol ou une façade à revoir en plus de la porte ou du meuble ? Voir <a href="/interieur">Travaux intérieurs</a> ou <a href="/exterieur">Travaux extérieurs</a>.</>,faq:[{q:"Est-ce que vous fabriquez des meubles ou des portes sur mesure ?",a:"[Réponse à confirmer avec Majid]"},{q:"Une porte qui ferme mal peut-elle être réparée sans être remplacée ?",a:"Dans beaucoup de cas, oui : un décapage, un ajustement et une nouvelle finition suffisent souvent à redonner à une porte son usage normal."}]};const serviceJsonLd={"@context":"https://schema.org","@type":"Service",serviceType:d.e,description:d.i,areaServed:"Angers et alentours",provider:{"@type":"LocalBusiness",name:"T.A.F Qualité"}};return <><JsonLd data={serviceJsonLd}/><section className="pagehero"><p className="eyebrow">{d.e} · Angers</p><h1>{d.t}</h1><p className="lede">{d.i}</p><button className="primary" onClick={()=>quote(d.p)}>{d.c}</button></section>{d.groups.map(g=><section className="section" key={g.title}><p className="eyebrow">{g.title}</p><div className="chips">{g.items.map(x=><span key={x}>{x}</span>)}</div></section>)}{d.note&&<section className="section"><p className="lede">{d.note}</p></section>}{d.faq.length>0&&<section className="section"><p className="eyebrow">Questions fréquentes</p><h2>Ce qu’il faut savoir</h2>{d.faq.map(f=><div key={f.q}><h3>{f.q}</h3><p>{f.a}</p></div>)}</section>}</>}
-const majidJsonLd={"@context":"https://schema.org","@type":"Person",name:"Majid Touati",jobTitle:"Dirigeant",worksFor:{"@type":"LocalBusiness",name:"T.A.F Qualité"}};
-function About({quote:_quote}:{quote:(p?:Project)=>void}){return <><JsonLd data={majidJsonLd}/><section className="pagehero"><p className="eyebrow">T.A.F Qualité</p><h1>Le travail bien fait commence par les bonnes personnes.</h1><p className="lede">Une entreprise dirigée par Majid Touati, entourée d’une équipe aux savoir-faire complémentaires.</p></section><section className="section dark"><p className="eyebrow">L’équipe</p><h2>À chacun son savoir-faire.</h2><div className="chips"><span>[SPÉCIALITÉ À CONFIRMER]</span><span>[SPÉCIALITÉ À CONFIRMER]</span></div></section><section className="section split"><Media label="Portrait naturel de Majid à insérer" tone="olive"/><div><p className="eyebrow">Majid · dirigeant</p><h2>Écouter. Coordonner. Exiger.</h2><p>Je suis l’interlocuteur du client. Mon rôle est de comprendre le projet, de réunir les bonnes compétences et de veiller à la cohérence du travail.</p><p>Sur un mur, une façade ou une porte, la question posée est toujours la même : remplacer est-il vraiment nécessaire, ou peut-on remettre en état pour un résultat aussi net ? Cette logique — rénover, transformer, faire durer — guide à égalité les trois savoir-faire de T.A.F Qualité : intérieur, extérieur, bois/meubles/portes.</p><small>[HISTOIRE ET MOTS DE MAJID À CONFIRMER]</small></div></section><section className="section quote"><p className="eyebrow">Majid Touati · dirigeant</p><blockquote>« Mon rôle est d’écouter, de coordonner les bonnes compétences et de veiller à l’exigence du résultat. »</blockquote><small>[TEXTE DE MAJID À CONFIRMER]</small></section><section className="section"><p className="eyebrow">Notre périmètre</p><h2>Ce que nous faisons — et ce que nous ne faisons pas.</h2><p className="lede">T.A.F Qualité intervient sur la rénovation intérieure, la rénovation extérieure et la remise en état d’éléments bois (portes, meubles, boiseries). Nous n’intervenons pas sur la toiture, l’isolation, la maçonnerie lourde ou le gros œuvre — nous préférons être clairs sur notre périmètre plutôt que de nous présenter comme une entreprise tous corps d’état.</p></section><Guarantees/><section className="section reassurance"><p className="eyebrow">Vos repères</p><div className="chips"><span>Interlocuteur unique</span><span>Devis détaillé</span><span>RC professionnelle · À confirmer</span><span>Décennale · À confirmer</span><span>Angers & alentours</span></div></section></>}
-const Form=({project,setProject,commune,setCommune,periode,setPeriode,budget,setBudget,besoin,setBesoin,step,setStep,ref}:{project:Project|"";setProject:(p:Project)=>void;commune:string;setCommune:(v:string)=>void;periode:string;setPeriode:(v:string)=>void;budget:string;setBudget:(v:string)=>void;besoin:string;setBesoin:(v:string)=>void;step:number;setStep:(n:number)=>void;ref:React.Ref<HTMLElement>})=><section id="devis" ref={ref} className="section form"><div><p className="eyebrow">Votre projet</p><h2>Parlons-en simplement.</h2><p>Deux étapes, environ deux minutes. Prototype : la demande n’est pas envoyée.</p></div><form onSubmit={e=>{e.preventDefault();if(step===1)setStep(2)}}>{step===1?<fieldset><legend>Étape 1 sur 2 · Le projet</legend><label>Type de projet<select value={project} onChange={e=>setProject(e.target.value as Project)} required><option value="" disabled hidden>Choisir</option><option>Intérieur</option><option>Extérieur</option><option>Bois</option></select></label><label>Commune<input value={commune} onChange={e=>setCommune(e.target.value)} placeholder="Ex. Angers" required/></label><label>Période souhaitée<input value={periode} onChange={e=>setPeriode(e.target.value)} placeholder="Ex. cet automne"/></label><label>Budget indicatif (facultatif)<input value={budget} onChange={e=>setBudget(e.target.value)} placeholder="Ex. 2000 à 4000 €"/></label><label>Décrivez votre besoin<textarea value={besoin} onChange={e=>setBesoin(e.target.value)} rows={3} placeholder="Les travaux envisagés, vos contraintes, vos questions…"/></label><button className="primary" type="submit">Continuer →</button></fieldset>:<fieldset><legend>Étape 2 sur 2 · Vos coordonnées</legend><label>Nom<input autoComplete="name" required/></label><label>Téléphone<input type="tel" autoComplete="tel" required/></label><label>Email<input type="email" autoComplete="email" required/></label><label>Moyen de contact préféré<select><option>Téléphone</option><option>Email</option><option>WhatsApp</option></select></label><label>Photos ou courte vidéo<input type="file" multiple accept="image/*,video/*"/></label><label className="consent"><input type="checkbox" required/><span>J’accepte que T.A.F Qualité utilise ces informations pour répondre à ma demande. <a href="#confidentialite">En savoir plus</a>.</span></label><div className="actions"><button className="secondary" type="button" onClick={()=>setStep(1)}>← Retour</button><button className="primary">Simuler l’envoi</button></div></fieldset>}</form></section>;
+import { Fragment, useEffect, useRef, useState } from "react";
+import { siteConfig } from "./config";
+import { buildWhatsappUrl, findService, getBeforeAfterMedia, pad2 } from "./config/helpers";
+import type { MediaSlot, ServiceDefinition } from "./config/types";
 
-function LegalFooter(){return <footer><div className="footer-main"><div><div className="wordmark"><img src="/media/logo.png" alt="T.A.F Qualité" width={1536} height={525}/></div><p>Travaux intérieurs, extérieurs et bois<br/>Angers et alentours</p></div><div><b>Votre projet</b><a href="/#devis">Demander un devis</a><a href={`https://wa.me/?text=${encodeURIComponent(whatsappMessage)}`} target="_blank" rel="noreferrer">Échanger avec nous</a></div><div><b>Informations</b><a href="#mentions-legales">Mentions légales</a><a href="#confidentialite">Confidentialité</a><span>Gérer mes cookies · aucun traceur dans le prototype</span></div></div><div className="legal-panels"><details id="mentions-legales"><summary>Mentions légales</summary><p><b>Éditeur :</b> T.A.F Qualité — forme juridique, capital, SIREN/SIRET, adresse, téléphone et email à confirmer.</p><p><b>Direction de la publication :</b> Majid Touati — à confirmer.</p><p><b>Hébergement :</b> identité, adresse et téléphone de l’hébergeur à compléter avant publication.</p><p><b>Assurances et médiation :</b> références de l’assurance professionnelle, de la garantie décennale et du médiateur de la consommation à compléter.</p></details><details id="confidentialite"><summary>Politique de confidentialité</summary><p>Les informations du formulaire serviront uniquement à étudier la demande et à reprendre contact. Les destinataires, durées de conservation et coordonnées permettant d’exercer les droits d’accès, de rectification, d’effacement et d’opposition seront précisés avant publication.</p><p>Ce prototype local ne transmet aucune donnée et ne dépose aucun traceur de mesure d’audience.</p></details></div><small>Prototype local — coordonnées, contenus, justificatifs et médias à confirmer avant publication.</small></footer>}
+type Project = string;
+
+const aboutKey = siteConfig.nav.aboutPath.replace(/^\//, "");
+
+const nav = [
+  { label: siteConfig.nav.homeLabel, key: "accueil", href: "/" },
+  ...siteConfig.services.map((service) => ({ label: service.navLabel, key: service.key, href: `/${service.key}` })),
+  { label: siteConfig.nav.aboutLabel, key: aboutKey, href: siteConfig.nav.aboutPath },
+];
+
+function Logo() {
+  const { logo } = siteConfig.media;
+  return (
+    <img
+      src={logo.src}
+      alt={logo.alt}
+      width={1536}
+      height={1024}
+      loading="eager"
+      style={{ aspectRatio: logo.aspectRatio, objectPosition: logo.objectPosition ?? "top" }}
+    />
+  );
+}
+
+type MediaOverlay = "hero" | "avant" | "apres" | "portrait";
+
+function Media({ slot, overlay }: { slot: MediaSlot; overlay: MediaOverlay }) {
+  const className = ["media", `media--${overlay}`, slot.isPlaceholder && "is-placeholder"].filter(Boolean).join(" ");
+  return (
+    <div
+      className={className}
+      role="img"
+      aria-label={slot.alt}
+      style={{ "--media-src": `url(${slot.src})` } as React.CSSProperties}
+    >
+      {slot.isPlaceholder && (
+        <>
+          <small>PROTOTYPE</small>
+          <strong>{slot.placeholderLabel ?? slot.alt}</strong>
+        </>
+      )}
+    </div>
+  );
+}
+
+function JsonLd({ data }: { data: Record<string, unknown> }) {
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />;
+}
+
+function BeforeAfter({ subject, mediaKey }: { subject: string; mediaKey: string }) {
+  const [view, setView] = useState<"avant" | "apres">("apres");
+  const stock = getBeforeAfterMedia(siteConfig, mediaKey)[view];
+  const slot: MediaSlot = {
+    src: stock.src,
+    alt: `${subject} — photo ${view}`,
+    isPlaceholder: stock.isPlaceholder,
+    placeholderLabel: `${subject} — photo ${view} à insérer`,
+    stockCredit: stock.stockCredit,
+  };
+  return (
+    <div className="comparison">
+      <div className="tabs" aria-label={`Comparer ${subject}`}>
+        <button aria-pressed={view === "avant"} onClick={() => setView("avant")}>
+          Avant
+        </button>
+        <button aria-pressed={view === "apres"} onClick={() => setView("apres")}>
+          Après
+        </button>
+      </div>
+      <div key={view} className="fade">
+        <Media slot={slot} overlay={view} />
+      </div>
+    </div>
+  );
+}
+
+function Process() {
+  const { process } = siteConfig;
+  return (
+    <section className="section process">
+      <div className="process-intro">
+        <p className="eyebrow">{process.eyebrow}</p>
+        <h2>
+          {process.title.split("\n").map((line, index) => (
+            <Fragment key={line}>
+              {index > 0 && <br />}
+              {line}
+            </Fragment>
+          ))}
+        </h2>
+        <p>{process.text}</p>
+      </div>
+      <ol>
+        {process.steps.map((step, index) => (
+          <li key={step.title}>
+            <span>{pad2(index + 1)}</span>
+            <div>
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+  );
+}
+
+function CommercialSelector({ quote }: { quote: (project?: Project) => void }) {
+  const { selector } = siteConfig.business;
+  const { services } = siteConfig;
+  return (
+    <section className="quick-project">
+      <div className="before-showcase">
+        <p className="eyebrow">{selector.eyebrow}</p>
+        <h2>{selector.title}</h2>
+        <div className="before-grid">
+          {services.map((service) => (
+            <article key={service.key}>
+              <h3>{service.comparatorLabel}</h3>
+              <BeforeAfter subject={service.comparatorLabel} mediaKey={service.mediaKey} />
+            </article>
+          ))}
+        </div>
+      </div>
+      <div className="quick-intro">
+        <p className="eyebrow">{selector.intro.eyebrow}</p>
+        <h2>{selector.intro.title}</h2>
+        <p>{selector.intro.text}</p>
+      </div>
+      <div className="quick-choices">
+        {services.map((service, index) => (
+          <button key={service.key} onClick={() => quote(service.projectLabel)}>
+            <span>{pad2(index + 1)}</span>
+            <b>{service.quickChoice.title}</b>
+            <small>{service.quickChoice.subtitle}</small>
+          </button>
+        ))}
+        <button onClick={() => quote()}>
+          <span>{pad2(services.length + 1)}</span>
+          <b>{selector.fallbackChoice.title}</b>
+          <small>{selector.fallbackChoice.subtitle}</small>
+        </button>
+      </div>
+      <p className="quick-note">{selector.note}</p>
+    </section>
+  );
+}
+
+function Guarantees() {
+  const { guarantees } = siteConfig.business;
+  return (
+    <section className="section guarantees">
+      <div>
+        <p className="eyebrow">{guarantees.eyebrow}</p>
+        <h2>{guarantees.title}</h2>
+      </div>
+      <div className="guarantee-grid">
+        {guarantees.items.map((item, index) => (
+          <article key={item.title}>
+            <span>{pad2(index + 1)}</span>
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Philosophy({ quote: _quote }: { quote: (project?: Project) => void }) {
+  const { philosophy } = siteConfig.business;
+  return (
+    <section className="section philosophy">
+      <p className="eyebrow">{philosophy.eyebrow}</p>
+      <h2>{philosophy.title}</h2>
+      <p className="lede">{philosophy.text}</p>
+    </section>
+  );
+}
+
+export function Prototype({ initialPage }: { initialPage: string }) {
+  const [menu, setMenu] = useState(false);
+  const [step, setStep] = useState(1);
+  const [quoteOpen, setQuoteOpen] = useState(false);
+  const [project, setProject] = useState<Project | "">("");
+  const [commune, setCommune] = useState("");
+  const [periode, setPeriode] = useState("");
+  const [budget, setBudget] = useState("");
+  const [besoin, setBesoin] = useState("");
+  const formRef = useRef<HTMLElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const requested = new URLSearchParams(location.search).get("projet");
+    if (requested && siteConfig.services.some((service) => service.projectLabel === requested)) {
+      // Synchronisation volontaire avec le contexte transmis par le CTA de la page précédente.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setProject(requested);
+    }
+    if (location.hash === "#devis") setQuoteOpen(true);
+  }, []);
+
+  useEffect(() => {
+    if (!quoteOpen) return;
+    const modal = modalRef.current;
+    const focusable = () =>
+      Array.from(
+        modal?.querySelectorAll<HTMLElement>('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])') ?? [],
+      ).filter((element) => !element.hasAttribute("disabled") && element.getAttribute("aria-hidden") !== "true");
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setQuoteOpen(false);
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const elements = focusable();
+      if (!elements.length) {
+        event.preventDefault();
+        return;
+      }
+      const first = elements[0];
+      const last = elements[elements.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+    const focusFrame = requestAnimationFrame(() => modal?.querySelector<HTMLElement>(".quote-modal-close")?.focus());
+    document.addEventListener("keydown", handleKey);
+    document.body.classList.add("modal-open");
+    return () => {
+      cancelAnimationFrame(focusFrame);
+      document.removeEventListener("keydown", handleKey);
+      document.body.classList.remove("modal-open");
+      triggerRef.current?.focus();
+    };
+  }, [quoteOpen]);
+
+  const quote = (selected?: Project) => {
+    triggerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    if (selected) setProject(selected);
+    setStep(1);
+    if (initialPage === "accueil") {
+      setQuoteOpen(true);
+    } else {
+      location.href = `/?projet=${encodeURIComponent(selected || project)}#devis`;
+    }
+  };
+
+  const currentService = siteConfig.services.find((service) => service.key === initialPage);
+  const preset = currentService?.projectLabel;
+
+  return (
+    <div>
+      <header>
+        <a className="wordmark" href="/">
+          <Logo />
+        </a>
+        <button className="menu" aria-expanded={menu} onClick={() => setMenu(!menu)}>
+          {menu ? "Fermer" : "Menu"}
+        </button>
+        <nav className={menu ? "open" : ""}>
+          {nav.map((item) => (
+            <a key={item.key} href={item.href} aria-current={initialPage === item.key ? "page" : undefined}>
+              {item.label}
+            </a>
+          ))}
+        </nav>
+      </header>
+      <main>
+        {initialPage === "accueil" ? (
+          <Home quote={quote} />
+        ) : initialPage === aboutKey ? (
+          <About quote={quote} />
+        ) : (
+          <Universe service={findService(siteConfig, initialPage)} quote={quote} />
+        )}
+      </main>
+      {quoteOpen && (
+        <div
+          className="quote-modal"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="quote-modal-title"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) setQuoteOpen(false);
+          }}
+        >
+          <div ref={modalRef} className="quote-modal-panel">
+            <button className="quote-modal-close" type="button" onClick={() => setQuoteOpen(false)} aria-label="Fermer le formulaire">
+              ×
+            </button>
+            <Form
+              ref={formRef}
+              project={project}
+              setProject={setProject}
+              commune={commune}
+              setCommune={setCommune}
+              periode={periode}
+              setPeriode={setPeriode}
+              budget={budget}
+              setBudget={setBudget}
+              besoin={besoin}
+              setBesoin={setBesoin}
+              step={step}
+              setStep={setStep}
+            />
+          </div>
+        </div>
+      )}
+      <LegalFooter />
+      <div className="sticky">
+        <a
+          href="#devis"
+          onClick={(event) => {
+            event.preventDefault();
+            quote(preset);
+          }}
+        >
+          Mon projet
+        </a>
+        <button onClick={() => quote(preset)}>Demander un devis</button>
+      </div>
+    </div>
+  );
+}
+
+function Home({ quote }: { quote: (project?: Project) => void }) {
+  const { hero } = siteConfig.business;
+  return (
+    <>
+      <section className="hero commercial-hero">
+        <div>
+          <p className="eyebrow">{hero.eyebrow}</p>
+          <h1>
+            {hero.headlineLead}
+            <br />
+            <em>{hero.headlineEmphasis}</em>
+          </h1>
+          <p className="lede">{hero.text}</p>
+          <div className="hero-benefits">
+            {hero.benefits.map((benefit) => (
+              <span key={benefit}>✓ {benefit}</span>
+            ))}
+          </div>
+          <small>{hero.footnote}</small>
+        </div>
+        <Media slot={siteConfig.media.heroImage} overlay="hero" />
+      </section>
+      <CommercialSelector quote={quote} />
+      <Process />
+      <Philosophy quote={quote} />
+    </>
+  );
+}
+
+function Universe({ service, quote }: { service: ServiceDefinition; quote: (project?: Project) => void }) {
+  const serviceJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    serviceType: service.eyebrow,
+    description: service.heroText,
+    areaServed: siteConfig.serviceArea.label,
+    provider: { "@type": "LocalBusiness", name: siteConfig.business.name },
+  };
+  return (
+    <>
+      <JsonLd data={serviceJsonLd} />
+      <section className="pagehero">
+        <p className="eyebrow">
+          {service.eyebrow} · {siteConfig.serviceArea.city}
+        </p>
+        <h1>{service.heroTitle}</h1>
+        <p className="lede">{service.heroText}</p>
+        <button className="primary" onClick={() => quote(service.projectLabel)}>
+          {service.ctaLabel}
+        </button>
+      </section>
+      {service.groups.map((group) => (
+        <section className="section" key={group.title}>
+          <p className="eyebrow">{group.title}</p>
+          <div className="chips">
+            {group.items.map((item) => (
+              <span key={item}>{item}</span>
+            ))}
+          </div>
+        </section>
+      ))}
+      {service.crossSell && (
+        <section className="section">
+          <p className="lede">
+            {service.crossSell.textBefore}
+            {service.crossSell.links.map((link, index) => (
+              <Fragment key={link.serviceKey}>
+                {index > 0 && (service.crossSell?.joiner ?? ", ")}
+                <a href={`/${link.serviceKey}`}>{link.label}</a>
+              </Fragment>
+            ))}
+            {service.crossSell.textAfter}
+          </p>
+        </section>
+      )}
+      {service.faq.length > 0 && (
+        <section className="section">
+          <p className="eyebrow">Questions fréquentes</p>
+          <h2>Ce qu’il faut savoir</h2>
+          {service.faq.map((entry) => (
+            <div key={entry.question}>
+              <h3>{entry.question}</h3>
+              <p>{entry.answer}</p>
+            </div>
+          ))}
+        </section>
+      )}
+    </>
+  );
+}
+
+function About({ quote: _quote }: { quote: (project?: Project) => void }) {
+  const { leader, about, team } = siteConfig;
+  const leaderJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: leader.name,
+    jobTitle: leader.role,
+    worksFor: { "@type": "LocalBusiness", name: siteConfig.business.name },
+  };
+  return (
+    <>
+      <JsonLd data={leaderJsonLd} />
+      <section className="pagehero">
+        <p className="eyebrow">{about.eyebrow}</p>
+        <h1>{about.title}</h1>
+        <p className="lede">{about.lede}</p>
+      </section>
+      {team.specialties.length > 0 && (
+        <section className="section dark">
+          <p className="eyebrow">{about.teamEyebrow}</p>
+          <h2>{about.teamTitle}</h2>
+          <div className="chips">
+            {team.specialties.map((specialty, index) => (
+              <span key={`${specialty}-${index}`}>{specialty}</span>
+            ))}
+          </div>
+        </section>
+      )}
+      <section className="section split">
+        <Media slot={siteConfig.media.leaderPortrait} overlay="portrait" />
+        <div>
+          <p className="eyebrow">{leader.shortEyebrow}</p>
+          <h2>{leader.sectionTitle}</h2>
+          {leader.bio.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
+          {leader.bioNote && <small>{leader.bioNote}</small>}
+        </div>
+      </section>
+      <section className="section quote">
+        <p className="eyebrow">{leader.quoteEyebrow}</p>
+        <blockquote>« {leader.quote} »</blockquote>
+        {leader.quoteNote && <small>{leader.quoteNote}</small>}
+      </section>
+      <section className="section">
+        <p className="eyebrow">{siteConfig.business.scope.eyebrow}</p>
+        <h2>{siteConfig.business.scope.title}</h2>
+        <p className="lede">{siteConfig.business.scope.text}</p>
+      </section>
+      <Guarantees />
+      <section className="section reassurance">
+        <p className="eyebrow">Vos repères</p>
+        <div className="chips">
+          {siteConfig.business.reassuranceChips.map((chip) => (
+            <span key={chip}>{chip}</span>
+          ))}
+        </div>
+      </section>
+    </>
+  );
+}
+
+const Form = ({
+  project,
+  setProject,
+  commune,
+  setCommune,
+  periode,
+  setPeriode,
+  budget,
+  setBudget,
+  besoin,
+  setBesoin,
+  step,
+  setStep,
+  ref,
+}: {
+  project: Project | "";
+  setProject: (value: Project) => void;
+  commune: string;
+  setCommune: (value: string) => void;
+  periode: string;
+  setPeriode: (value: string) => void;
+  budget: string;
+  setBudget: (value: string) => void;
+  besoin: string;
+  setBesoin: (value: string) => void;
+  step: number;
+  setStep: (value: number) => void;
+  ref: React.Ref<HTMLElement>;
+}) => {
+  const { form } = siteConfig;
+  return (
+    <section id="devis" ref={ref} className="section form">
+      <div>
+        <p className="eyebrow">{form.eyebrow}</p>
+        <h2>{form.title}</h2>
+        <p>{form.intro}</p>
+      </div>
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          if (step === 1) setStep(2);
+        }}
+      >
+        {step === 1 ? (
+          <fieldset>
+            <legend>{form.step1Legend}</legend>
+            <label>
+              {form.projectLabel}
+              <select value={project} onChange={(event) => setProject(event.target.value)} required>
+                <option value="" disabled hidden>
+                  {form.projectPlaceholder}
+                </option>
+                {siteConfig.services.map((service) => (
+                  <option key={service.key} value={service.projectLabel}>
+                    {service.projectLabel}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label>
+              {form.communeLabel}
+              <input value={commune} onChange={(event) => setCommune(event.target.value)} placeholder={form.communePlaceholder} required />
+            </label>
+            <label>
+              {form.periodLabel}
+              <input value={periode} onChange={(event) => setPeriode(event.target.value)} placeholder={form.periodPlaceholder} />
+            </label>
+            <label>
+              {form.budgetLabel}
+              <input value={budget} onChange={(event) => setBudget(event.target.value)} placeholder={form.budgetPlaceholder} />
+            </label>
+            <label>
+              {form.needsLabel}
+              <textarea value={besoin} onChange={(event) => setBesoin(event.target.value)} rows={3} placeholder={form.needsPlaceholder} />
+            </label>
+            <button className="primary" type="submit">
+              {form.continueLabel}
+            </button>
+          </fieldset>
+        ) : (
+          <fieldset>
+            <legend>{form.step2Legend}</legend>
+            <label>
+              {form.nameLabel}
+              <input autoComplete="name" required />
+            </label>
+            <label>
+              {form.phoneLabel}
+              <input type="tel" autoComplete="tel" required />
+            </label>
+            <label>
+              {form.emailLabel}
+              <input type="email" autoComplete="email" required />
+            </label>
+            <label>
+              {form.contactPreferenceLabel}
+              <select>
+                {form.contactPreferenceOptions.map((option) => (
+                  <option key={option}>{option}</option>
+                ))}
+              </select>
+            </label>
+            <label>
+              {form.mediaUploadLabel}
+              <input type="file" multiple accept="image/*,video/*" />
+            </label>
+            <label className="consent">
+              <input type="checkbox" required />
+              <span>
+                {form.consentText} <a href="#confidentialite">{form.consentLinkLabel}</a>.
+              </span>
+            </label>
+            <div className="actions">
+              <button className="secondary" type="button" onClick={() => setStep(1)}>
+                {form.backLabel}
+              </button>
+              <button className="primary">{form.submitLabel}</button>
+            </div>
+          </fieldset>
+        )}
+      </form>
+    </section>
+  );
+};
+
+function LegalFooter() {
+  const { footer, legal, serviceArea, contact } = siteConfig;
+  return (
+    <footer>
+      <div className="footer-main">
+        <div>
+          <div className="wordmark">
+            <Logo />
+          </div>
+          <p>
+            {footer.tagline}
+            <br />
+            {serviceArea.label}
+          </p>
+        </div>
+        <div>
+          <b>{footer.projectColumnTitle}</b>
+          <a href="/#devis">{footer.quoteLinkLabel}</a>
+          <a href={buildWhatsappUrl(contact)} target="_blank" rel="noreferrer">
+            {footer.whatsappLinkLabel}
+          </a>
+        </div>
+        <div>
+          <b>{footer.infoColumnTitle}</b>
+          <a href="#mentions-legales">{footer.legalLinkLabel}</a>
+          <a href="#confidentialite">{footer.privacyLinkLabel}</a>
+          <span>{footer.cookiesNote}</span>
+        </div>
+      </div>
+      <div className="legal-panels">
+        <details id="mentions-legales">
+          <summary>{footer.legalLinkLabel}</summary>
+          <p>
+            <b>Éditeur :</b> {legal.editorLine}
+          </p>
+          <p>
+            <b>Direction de la publication :</b> {legal.publicationDirectorLine}
+          </p>
+          <p>
+            <b>Hébergement :</b> {legal.hostingLine}
+          </p>
+          <p>
+            <b>Assurances et médiation :</b> {legal.insuranceLine}
+          </p>
+        </details>
+        <details id="confidentialite">
+          <summary>{footer.privacyPanelTitle}</summary>
+          <p>{legal.privacyIntro}</p>
+          <p>{legal.privacyPrototypeNote}</p>
+        </details>
+      </div>
+      <small>{footer.disclaimer}</small>
+    </footer>
+  );
+}
